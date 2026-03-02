@@ -314,15 +314,14 @@
 
     <script>
        firebase.initializeApp({
-             apiKey: "AIzaSyD9JfpdlgZs50ZBPbbDd4lxWbFlDEbgoYE",
+         apiKey: "AIzaSyD9JfpdlgZs50ZBPbbDd4lxWbFlDEbgoYE",
   authDomain: "anywhere-rooter-tracker.firebaseapp.com",
   databaseURL: "https://anywhere-rooter-tracker-default-rtdb.firebaseio.com",
   projectId: "anywhere-rooter-tracker",
   storageBucket: "anywhere-rooter-tracker.firebasestorage.app",
   messagingSenderId: "1018906451810",
-  appId: "1:1018906451810:web:1a3e996a2c1062375f163b"
-};;
-
+ appId: "1:1018906451810:web:1a3e996a2c1062375f163b"
+});
         const db = firebase.database();
         const selected = localStorage.getItem('selectedPerson');
         let currentDate = new Date();
