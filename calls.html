@@ -64,37 +64,34 @@
             appId: "1:1018906451810:web:1a3e996a2c1062375f163b"
         });
 
-        const db = firebase.database();
-        const selected = localStorage.getItem('selectedPerson');
-        let currentDate = new Date();
-        let selectedDate = null;
-        let people = [];
-        if (!selected) {
-            window.location.href = 'index.html';
-        }
+        var db = firebase.database();
+        var selected = localStorage.getItem('selectedPerson');
+        var currentDate = new Date();
+        var selectedDate = null;
+        var people = [];
 
-        db.ref('salespeople').on('value', snapshot => {
-            const data = snapshot.val();
-            people = data ? Object.keys(data).map(k => ({ id: k, name: data[k].name })) : [];
-            const person = people.find(p => p.id === selected);
-            if (person) {
-                document.getElementById('personName').textContent = 'Logging calls for: ' + person.name;
-            }
+        if (!selected) { window.location.href = 'index.html'; }
+
+        db.ref('salespeople').on('value', function(snapshot) {
+            var data = snapshot.val();
+            people = data ? Object.keys(data).map(function(k) { return { id: k, name: data[k].name }; }) : [];
+            var person = people.find(function(p) { return p.id === selected; });
+            if (person) { document.getElementById('personName').textContent = 'Logging calls for: ' + person.name; }
         });
 
-        const dk = function(d) {
+        function dk(d) {
             return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-        };
-        const dataKey = function(d) { return selected + '_' + dk(d); };
+        }
+        function dataKey(d) { return selected + '_' + dk(d); }
 
         function getWeek(date) {
-            const day = date.getDay();
-            const diff = date.getDate() - day + (day === 0 ? -6 : 1);
-            const monday = new Date(date);
+            var day = date.getDay();
+            var diff = date.getDate() - day + (day === 0 ? -6 : 1);
+            var monday = new Date(date);
             monday.setDate(diff);
-            const week = [];
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(monday);
+            var week = [];
+            for (var i = 0; i < 7; i++) {
+                var d = new Date(monday);
                 d.setDate(monday.getDate() + i);
                 week.push(d);
             }
@@ -102,78 +99,86 @@
         }
 
         function renderCalendar() {
-            const week = getWeek(currentDate);
+            var week = getWeek(currentDate);
             document.getElementById('weekRange').textContent =
                 week[0].toLocaleDateString('en-US', {month:'short', day:'numeric'}) + ' - ' +
                 week[6].toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 
-            const container = document.getElementById('calendarContainer');
-            container.innerHTML =
-                '<div class="grid grid-cols-7 gap-3 mb-3">' +
-                ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(function(day) {
-                    return '<div class="text-center text-sm font-bold text-gray-600">' + day + '</div>';
-                }).join('') +
-                '</div>' +
-                '<div id="calendarDays" class="grid grid-cols-7 gap-3"></div>';
+            var container = document.getElementById('calendarContainer');
 
-            const daysContainer = document.getElementById('calendarDays');
+            // Build header + 7 pre-indexed placeholder slots so order never changes
+            var html = '<div class="grid grid-cols-7 gap-3 mb-3">';
+            ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(function(day) {
+                html += '<div class="text-center text-sm font-bold text-gray-600">' + day + '</div>';
+            });
+            html += '</div><div id="calendarDays" class="grid grid-cols-7 gap-3">';
+            for (var i = 0; i < 7; i++) {
+                html += '<div id="calDay_' + i + '" class="p-4 rounded-xl border-2 border-gray-100 bg-gray-50 min-h-16"></div>';
+            }
+            html += '</div>';
+            container.innerHTML = html;
 
-            week.forEach(function(d) {
-                db.ref('callLogs/' + dataKey(d)).once('value', function(snapshot) {
-                    const calls = snapshot.val();
-                    const callsArray = calls ? Object.values(calls) : [];
-                    const sold = callsArray.filter(function(c) { return c.jobSold; });
-                    const total = callsArray.reduce(function(sum, c) { return sum + (parseFloat(c.amountSold) || 0); }, 0);
-                    const dateKey = dk(d);
-                    const isToday = dk(new Date()) === dateKey;
-                    const isSelected = selectedDate === dateKey;
+            // Fill each slot in its fixed position as Firebase responds
+            week.forEach(function(d, idx) {
+                (function(capturedD, capturedIdx) {
+                    db.ref('callLogs/' + dataKey(capturedD)).once('value', function(snapshot) {
+                        var calls = snapshot.val();
+                        var callsArray = calls ? Object.values(calls) : [];
+                        var sold = callsArray.filter(function(c) { return c.jobSold; });
+                        var total = callsArray.reduce(function(sum, c) { return sum + (parseFloat(c.amountSold) || 0); }, 0);
+                        var dateKey = dk(capturedD);
+                        var isToday = dk(new Date()) === dateKey;
+                        var isSelected = selectedDate === dateKey;
 
-                    const dayDiv = document.createElement('button');
-                    dayDiv.className = 'calendar-day p-4 rounded-xl border-2 ' + (
-                        isSelected ? 'border-blue-600 bg-gradient-to-br from-blue-100 to-indigo-100 shadow-xl' :
-                        callsArray.length > 0 ? 'border-green-400 bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-lg' :
-                        isToday ? 'border-blue-300 bg-white shadow-md' :
-                        'border-gray-200 bg-white hover:border-gray-300'
-                    );
+                        var slot = document.getElementById('calDay_' + capturedIdx);
+                        if (!slot) return;
 
-                    dayDiv.onclick = function() {
-                        selectedDate = isSelected ? null : dateKey;
-                        renderCalendar();
-                        if (selectedDate) renderCalls(d);
-                        else document.getElementById('callsSection').style.display = 'none';
-                    };
+                        slot.className = 'calendar-day p-4 rounded-xl border-2 cursor-pointer ' + (
+                            isSelected ? 'border-blue-600 bg-gradient-to-br from-blue-100 to-indigo-100 shadow-xl' :
+                            callsArray.length > 0 ? 'border-green-400 bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-lg' :
+                            isToday ? 'border-blue-300 bg-white shadow-md' :
+                            'border-gray-200 bg-white hover:border-gray-300'
+                        );
 
-                    dayDiv.innerHTML =
-                        '<div class="text-2xl font-black text-gray-800">' + d.getDate() + '</div>' +
-                        (callsArray.length > 0 ?
-                            '<div class="mt-2 space-y-1">' +
-                            '<div class="text-xs font-bold text-green-700">' + sold.length + ' sold</div>' +
-                            '<div class="text-xs font-bold text-green-700">$' + total.toLocaleString() + '</div>' +
-                            '</div>' :
-                            '<div class="text-xs text-gray-400 mt-2">No calls</div>');
+                        slot.onclick = (function(fd, fDateKey, fIsSelected) {
+                            return function() {
+                                selectedDate = fIsSelected ? null : fDateKey;
+                                renderCalendar();
+                                if (selectedDate) renderCalls(fd);
+                                else document.getElementById('callsSection').style.display = 'none';
+                            };
+                        })(capturedD, dateKey, isSelected);
 
-                    daysContainer.appendChild(dayDiv);
-                });
+                        slot.innerHTML =
+                            '<div class="text-2xl font-black text-gray-800">' + capturedD.getDate() + '</div>' +
+                            (callsArray.length > 0 ?
+                                '<div class="mt-2 space-y-1">' +
+                                '<div class="text-xs font-bold text-green-700">' + sold.length + ' sold</div>' +
+                                '<div class="text-xs font-bold text-green-700">$' + total.toLocaleString() + '</div>' +
+                                '</div>' :
+                                '<div class="text-xs text-gray-400 mt-2">No calls</div>');
+                    });
+                })(d, idx);
             });
         }
 
         function calculateMoneyOwed(amountSold, amountCollected) {
-            const sold = parseFloat(amountSold) || 0;
-            const collected = parseFloat(amountCollected) || 0;
+            var sold = parseFloat(amountSold) || 0;
+            var collected = parseFloat(amountCollected) || 0;
             return Math.max(0, sold - collected);
         }
 
         function renderCalls(date) {
             document.getElementById('callsSection').style.display = 'block';
-            const key = dataKey(date);
+            var key = dataKey(date);
 
             db.ref('callLogs/' + key).on('value', function(snapshot) {
-                const calls = snapshot.val();
-                const callsArray = calls ? Object.keys(calls).map(function(id) {
+                var calls = snapshot.val();
+                var callsArray = calls ? Object.keys(calls).map(function(id) {
                     return Object.assign({ id: id }, calls[id]);
                 }) : [];
 
-                const container = document.getElementById('callsList');
+                var container = document.getElementById('callsList');
                 if (callsArray.length === 0) {
                     container.innerHTML = '<p class="text-center text-gray-500 py-12 text-lg">No calls logged for this day</p>';
                     return;
@@ -186,16 +191,13 @@
                             '<button onclick="deleteCall(\'' + call.id + '\')" class="text-red-600 font-bold hover:text-red-800 bg-red-50 px-4 py-1 rounded-full transition-all hover:bg-red-100">🗑️ Delete</button>' +
                         '</div>' +
                         '<div class="space-y-4">' +
-
                             '<input type="text" value="' + (call.customerName || '') + '" onchange="updateCall(\'' + call.id + '\', \'customerName\', this.value)" class="w-full px-4 py-3 border-2 rounded-xl font-semibold text-lg focus:border-blue-500 focus:outline-none" placeholder="Customer Name" />' +
                             '<input type="text" value="' + (call.jobNumber || '') + '" onchange="updateCall(\'' + call.id + '\', \'jobNumber\', this.value)" class="w-full px-4 py-3 border-2 rounded-xl focus:border-blue-500 focus:outline-none" placeholder="Job Number" />' +
                             '<input type="tel" value="' + (call.customerPhone || '') + '" onchange="updateCall(\'' + call.id + '\', \'customerPhone\', this.value)" class="w-full px-4 py-3 border-2 rounded-xl focus:border-blue-500 focus:outline-none" placeholder="Customer Phone" />' +
-
                             '<label class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-gray-300 cursor-pointer hover:border-green-400 transition-all">' +
                                 '<input type="checkbox" ' + (call.jobSold ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'jobSold\', this.checked)" class="w-6 h-6" />' +
                                 '<span class="font-bold text-xl">💰 Job Sold</span>' +
                             '</label>' +
-
                             (call.jobSold ?
                                 '<div class="space-y-3 p-4 bg-green-50 rounded-xl border-2 border-green-300">' +
                                     '<div><label class="text-sm font-bold text-gray-700 block mb-1">Total Amount Sold ($)</label>' +
@@ -222,71 +224,41 @@
                                             '</select></div>' : '') +
                                     '</div>' +
                                 '</div>' : '') +
-
                             '<label class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-gray-300 cursor-pointer hover:border-red-400 transition-all">' +
                                 '<input type="checkbox" ' + (call.jobCancelled ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'jobCancelled\', this.checked)" class="w-6 h-6" />' +
                                 '<span class="font-bold text-xl">❌ Job Cancelled</span>' +
                             '</label>' +
                             (call.jobCancelled ?
                                 '<textarea onchange="updateCall(\'' + call.id + '\', \'cancelReason\', this.value)" class="w-full px-4 py-3 border-2 border-red-300 rounded-xl focus:outline-none" placeholder="Reason for cancellation..." rows="3">' + (call.cancelReason || '') + '</textarea>' : '') +
-
                             '<label class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-gray-300 cursor-pointer hover:border-orange-400 transition-all">' +
                                 '<input type="checkbox" ' + (call.leftEstimate ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'leftEstimate\', this.checked)" class="w-6 h-6" />' +
                                 '<span class="font-bold text-lg">📋 Left Estimate</span>' +
                             '</label>' +
                             (call.leftEstimate ?
                                 '<input type="number" value="' + (call.estimateAmount || '') + '" onchange="updateCall(\'' + call.id + '\', \'estimateAmount\', parseFloat(this.value)||0)" class="w-full px-4 py-3 border-2 border-orange-300 rounded-xl focus:outline-none" placeholder="Estimate Amount ($)" />' : '') +
-
                             '<div class="border-t-2 pt-4 mt-4">' +
                                 '<p class="font-bold text-sm text-gray-700 mb-3">Trade Type</p>' +
                                 '<div class="grid grid-cols-2 gap-2">' +
-                                    '<label class="flex items-center gap-2 p-3 bg-blue-50 rounded-xl border-2 border-blue-300 cursor-pointer hover:bg-blue-100 transition-all">' +
-                                        '<input type="checkbox" ' + (call.tradePlumbing ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradePlumbing\', this.checked)" class="w-5 h-5" />' +
-                                        '<span class="text-sm font-bold text-blue-700">🔧 Plumbing</span></label>' +
-                                    '<label class="flex items-center gap-2 p-3 bg-yellow-50 rounded-xl border-2 border-yellow-300 cursor-pointer hover:bg-yellow-100 transition-all">' +
-                                        '<input type="checkbox" ' + (call.tradeElectrical ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradeElectrical\', this.checked)" class="w-5 h-5" />' +
-                                        '<span class="text-sm font-bold text-yellow-700">⚡ Electrical</span></label>' +
-                                    '<label class="flex items-center gap-2 p-3 bg-red-50 rounded-xl border-2 border-red-300 cursor-pointer hover:bg-red-100 transition-all">' +
-                                        '<input type="checkbox" ' + (call.tradeHVAC ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradeHVAC\', this.checked)" class="w-5 h-5" />' +
-                                        '<span class="text-sm font-bold text-red-700">🌡️ HVAC</span></label>' +
-                                    '<label class="flex items-center gap-2 p-3 bg-purple-50 rounded-xl border-2 border-purple-300 cursor-pointer hover:bg-purple-100 transition-all">' +
-                                        '<input type="checkbox" ' + (call.tradeCameras ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradeCameras\', this.checked)" class="w-5 h-5" />' +
-                                        '<span class="text-sm font-bold text-purple-700">📹 Cameras</span></label>' +
+                                    '<label class="flex items-center gap-2 p-3 bg-blue-50 rounded-xl border-2 border-blue-300 cursor-pointer hover:bg-blue-100 transition-all"><input type="checkbox" ' + (call.tradePlumbing ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradePlumbing\', this.checked)" class="w-5 h-5" /><span class="text-sm font-bold text-blue-700">🔧 Plumbing</span></label>' +
+                                    '<label class="flex items-center gap-2 p-3 bg-yellow-50 rounded-xl border-2 border-yellow-300 cursor-pointer hover:bg-yellow-100 transition-all"><input type="checkbox" ' + (call.tradeElectrical ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradeElectrical\', this.checked)" class="w-5 h-5" /><span class="text-sm font-bold text-yellow-700">⚡ Electrical</span></label>' +
+                                    '<label class="flex items-center gap-2 p-3 bg-red-50 rounded-xl border-2 border-red-300 cursor-pointer hover:bg-red-100 transition-all"><input type="checkbox" ' + (call.tradeHVAC ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradeHVAC\', this.checked)" class="w-5 h-5" /><span class="text-sm font-bold text-red-700">🌡️ HVAC</span></label>' +
+                                    '<label class="flex items-center gap-2 p-3 bg-purple-50 rounded-xl border-2 border-purple-300 cursor-pointer hover:bg-purple-100 transition-all"><input type="checkbox" ' + (call.tradeCameras ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'tradeCameras\', this.checked)" class="w-5 h-5" /><span class="text-sm font-bold text-purple-700">📹 Cameras</span></label>' +
                                 '</div>' +
                             '</div>' +
-
                             '<div class="border-t-2 pt-4 mt-4">' +
                                 '<p class="font-bold text-sm text-gray-700 mb-3">Performance Metrics</p>' +
                                 '<div class="grid grid-cols-2 gap-2">' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.reviewCompleted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'reviewCompleted\', this.checked)" class="w-4 h-4" />' +
-                                        '<span>✅ Review</span></label>' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.restorationLead ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'restorationLead\', this.checked)" class="w-4 h-4" />' +
-                                        '<span>🏠 Restoration</span></label>' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.turnoverAttempted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'turnoverAttempted\', this.checked)" class="w-4 h-4" />' +
-                                        '<span>🔄 Turnover Attempt</span></label>' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.turnoverAccepted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'turnoverAccepted\', this.checked)" ' + (!call.turnoverAttempted ? 'disabled' : '') + ' class="w-4 h-4" />' +
-                                        '<span>✔️ Turnover Accept</span></label>' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.threeDoorKnocks ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'threeDoorKnocks\', this.checked)" class="w-4 h-4" />' +
-                                        '<span>🚪 3 Door Knocks</span></label>' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.membershipPlanSold ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'membershipPlanSold\', this.checked)" class="w-4 h-4" />' +
-                                        '<span>🛡️ Membership Plan</span></label>' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.upsellCompleted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'upsellCompleted\', this.checked)" class="w-4 h-4" />' +
-                                        '<span>⬆️ Upsell</span></label>' +
-                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg">' +
-                                        '<input type="checkbox" ' + (call.jobComplete ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'jobComplete\', this.checked)" class="w-4 h-4" />' +
-                                        '<span>✔️ Complete</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.reviewCompleted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'reviewCompleted\', this.checked)" class="w-4 h-4" /><span>✅ Review</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.restorationLead ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'restorationLead\', this.checked)" class="w-4 h-4" /><span>🏠 Restoration</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.turnoverAttempted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'turnoverAttempted\', this.checked)" class="w-4 h-4" /><span>🔄 Turnover Attempt</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.turnoverAccepted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'turnoverAccepted\', this.checked)" ' + (!call.turnoverAttempted ? 'disabled' : '') + ' class="w-4 h-4" /><span>✔️ Turnover Accept</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.threeDoorKnocks ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'threeDoorKnocks\', this.checked)" class="w-4 h-4" /><span>🚪 3 Door Knocks</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.membershipPlanSold ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'membershipPlanSold\', this.checked)" class="w-4 h-4" /><span>🛡️ Membership Plan</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.upsellCompleted ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'upsellCompleted\', this.checked)" class="w-4 h-4" /><span>⬆️ Upsell</span></label>' +
+                                    '<label class="flex items-center gap-2 text-sm cursor-pointer p-2 hover:bg-gray-100 rounded-lg"><input type="checkbox" ' + (call.jobComplete ? 'checked' : '') + ' onchange="updateCall(\'' + call.id + '\', \'jobComplete\', this.checked)" class="w-4 h-4" /><span>✔️ Complete</span></label>' +
                                 '</div>' +
-                                (call.upsellCompleted ?
-                                    '<input type="number" value="' + (call.upsellAmount || '') + '" onchange="updateCall(\'' + call.id + '\', \'upsellAmount\', parseFloat(this.value)||0)" class="w-full px-4 py-3 border-2 rounded-xl mt-3 focus:outline-none" placeholder="Upsell Amount ($)" />' : '') +
+                                (call.upsellCompleted ? '<input type="number" value="' + (call.upsellAmount || '') + '" onchange="updateCall(\'' + call.id + '\', \'upsellAmount\', parseFloat(this.value)||0)" class="w-full px-4 py-3 border-2 rounded-xl mt-3 focus:outline-none" placeholder="Upsell Amount ($)" />' : '') +
                             '</div>' +
-
                             '<div class="border-t-2 pt-4 mt-4">' +
                                 '<p class="font-bold text-sm text-gray-700 mb-2">🚫 Objection (if any)</p>' +
                                 '<select onchange="updateCall(\'' + call.id + '\', \'objection\', this.value)" class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none">' +
@@ -300,7 +272,6 @@
                                     '<option value="trust" ' + (call.objection === 'trust' ? 'selected' : '') + '>⚠️ Trust/Bad Reviews/Bad Experience</option>' +
                                 '</select>' +
                             '</div>' +
-
                         '</div>' +
                     '</div>';
                 }).join('');
@@ -328,30 +299,24 @@
         }
 
         function handleAmountChange(callId) {
-            const d = getWeek(currentDate).find(function(d) { return dk(d) === selectedDate; });
-            const key = dataKey(d);
-            const amountSold = parseFloat(document.getElementById('amountSold_' + callId).value) || 0;
-            const amountCollected = parseFloat(document.getElementById('amountCollected_' + callId).value) || 0;
-            const moneyOwed = calculateMoneyOwed(amountSold, amountCollected);
-            db.ref('callLogs/' + key + '/' + callId).update({
-                amountSold: amountSold,
-                amountCollected: amountCollected,
-                moneyOwed: moneyOwed
-            });
+            var d = getWeek(currentDate).find(function(d) { return dk(d) === selectedDate; });
+            var key = dataKey(d);
+            var amountSold = parseFloat(document.getElementById('amountSold_' + callId).value) || 0;
+            var amountCollected = parseFloat(document.getElementById('amountCollected_' + callId).value) || 0;
+            var moneyOwed = calculateMoneyOwed(amountSold, amountCollected);
+            db.ref('callLogs/' + key + '/' + callId).update({ amountSold: amountSold, amountCollected: amountCollected, moneyOwed: moneyOwed });
             document.getElementById('moneyOwed_' + callId).textContent = '$' + moneyOwed.toLocaleString();
         }
 
         function updateCall(callId, field, value) {
-            const d = getWeek(currentDate).find(function(d) { return dk(d) === selectedDate; });
-            const key = dataKey(d);
-            db.ref('callLogs/' + key + '/' + callId + '/' + field).set(value);
+            var d = getWeek(currentDate).find(function(d) { return dk(d) === selectedDate; });
+            db.ref('callLogs/' + dataKey(d) + '/' + callId + '/' + field).set(value);
         }
 
         function deleteCall(callId) {
             if (confirm('Delete this call?')) {
-                const d = getWeek(currentDate).find(function(d) { return dk(d) === selectedDate; });
-                const key = dataKey(d);
-                db.ref('callLogs/' + key + '/' + callId).remove();
+                var d = getWeek(currentDate).find(function(d) { return dk(d) === selectedDate; });
+                db.ref('callLogs/' + dataKey(d) + '/' + callId).remove();
             }
         }
 
