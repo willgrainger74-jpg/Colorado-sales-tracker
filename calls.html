@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#080808">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anywhere Rooter — Sales Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Log Calls - Anywhere Rooter</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root{
-  --red:#CC1F1F;--red2:#A01818;--red3:rgba(204,31,31,0.15);
-  --blue:#1B4FBF;--blue2:#1440A0;--blue3:rgba(27,79,191,0.2);
-  --navy:#0A0F1E;--bg:#0A0F1E;--s1:#0F1826;--s2:#162033;--s3:#1D2B42;
-  --wire:rgba(255,255,255,0.07);--wire2:rgba(255,255,255,0.13);--wire3:rgba(255,255,255,0.22);
-  --text:#F5F5F5;--muted:#9AAFC8;--faint:#506070;
-  --green:#22C55E;--amber:#F59E0B;
-  --orange:#CC1F1F;--orange2:#A01818;--orange3:rgba(204,31,31,0.15);
-}
-        body { background:var(--navy);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh; }
-        body::after { content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.05) 3px,rgba(0,0,0,0.05) 4px);pointer-events:none;z-index:999; }
+        :root {
+            --blue:   #10309f;
+            --blue2:  #1440a0;
+            --blue3:  rgba(16,48,159,0.18); --red:#e0102f;--red2:#991b1b;--red3:#450a0a;--bg:#080808;--s1:#111111;--s2:#181818;--s3:#202020;--wire:rgba(255,255,255,0.06);--wire2:rgba(255,255,255,0.10);--muted:#aaa;--faint:#666;--text:#efefef; }
+
+/* ── LIGHT MODE ── */
+html.light{--bg:#f4f4f4;--s1:#ffffff;--s2:#ebebeb;--s3:#e0e0e0;--s4:#d4d4d4;--wire:rgba(0,0,0,0.08);--wire2:rgba(0,0,0,0.14);--wire3:rgba(0,0,0,0.22);--muted:#555555;--faint:#999999;--text:#111111;--red3:#fde8e8;}
+html.light body::after{display:none;}
+html.light input,html.light select,html.light textarea{background:var(--s3);border-color:var(--wire2);color:var(--text);}
+html.light input::placeholder,html.light textarea::placeholder{color:var(--faint);}
+
+        body { background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh; }
+        body::after { content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;z-index:999; }
         .page { max-width:1400px;margin:0 auto;padding:24px 20px 60px; }
-        .page-header { display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--wire); }
-        .page-title { font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,6vw,72px);line-height:0.9;letter-spacing:2px; }
-        .page-title em { font-style:normal;color:var(--red); }
+        .page-header { display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--wire);position:relative; }
+        .page-header::after { content:"";position:absolute;bottom:-1px;left:0;height:3px;width:120px;background:linear-gradient(90deg,var(--red) 0 33%,#f5f5f5 33% 66%,var(--blue) 66% 100%); }
+        .page-title { font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);line-height:0.9;letter-spacing:2px; }
+        .page-title em { font-style:normal;color:#3b63d6; }
         .page-sub { font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:6px; }
         .back-btn { font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);border:1px solid var(--wire2);padding:10px 18px;text-decoration:none;transition:all 0.15s;white-space:nowrap;margin-top:8px;display:inline-block; }
         .back-btn:hover { color:var(--text);border-color:var(--muted); }
@@ -40,8 +48,8 @@
         .cal-day { background:var(--s2);border:1px solid var(--wire);border-top:2px solid transparent;padding:14px 8px;cursor:pointer;transition:all 0.15s;text-align:left;width:100%; }
         .cal-day:hover { border-top-color:var(--red);background:var(--s3); }
         .cal-day.has-calls { border-top-color:var(--red);background:rgba(68,10,10,0.4); }
-        .cal-day.selected { border-color:rgba(204,31,31,0.4);border-top-color:var(--red);background:rgba(204,31,31,0.12);box-shadow:0 0 0 1px var(--red); }
-        .cal-day-num { font-family:'Barlow Condensed',sans-serif;font-size:26px;color:var(--text);line-height:1; }
+        .cal-day.selected { border-color:rgba(224,16,47,0.5);border-top-color:var(--red);background:var(--red3);box-shadow:0 0 0 1px var(--red); }
+        .cal-day-num { font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--text);line-height:1; }
         .cal-day-stat { font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.06em;color:var(--red);margin-top:4px; }
         .cal-day-empty { font-size:13px;color:var(--muted);margin-top:4px; }
         .calls-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:20px; }
@@ -52,11 +60,11 @@
         .call-card { background:var(--s2);border:1px solid var(--wire);border-left:3px solid var(--red);padding:20px;margin-bottom:12px; }
         .call-card-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:16px; }
         .call-label { font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted); }
-        .del-call { font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);background:rgba(204,31,31,0.12);border:1px solid rgba(220,38,38,0.3);padding:6px 14px;cursor:pointer;transition:all 0.15s; }
+        .del-call { font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);background:var(--red3);border:1px solid rgba(224,16,47,0.3);padding:6px 14px;cursor:pointer;transition:all 0.15s; }
         .del-call:hover { background:var(--red);color:#fff; }
         .field { margin-bottom:12px; }
         .field label { font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px; }
-        input[type=text], input[type=number], input[type=tel], textarea, select { background:var(--s3);border:1px solid var(--wire2);color:var(--text);padding:10px 14px;width:100%;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color 0.15s; }
+        input[type=text], input[type=number], input[type=tel], textarea, select { background:var(--s3);border:1px solid var(--wire2);color:var(--text);padding:10px 14px;width:100%;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color 0.15s; }
         input::placeholder, textarea::placeholder { color:var(--muted); }
         input:focus, textarea:focus, select:focus { border-color:var(--red); }
         select option { background:var(--s3);color:var(--text); }
@@ -66,15 +74,36 @@
         .check-row span { font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text); }
         .subsection { background:var(--s1);border:1px solid var(--wire2);border-left:3px solid var(--red);padding:16px;margin:12px 0; }
         .subsection-title { font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:12px; }
-        .money-owed-display { background:rgba(204,31,31,0.12);border:1px solid rgba(220,38,38,0.3);padding:14px;margin-top:10px; }
+        .money-owed-display { background:var(--red3);border:1px solid rgba(224,16,47,0.3);padding:14px;margin-top:10px; }
         .money-owed-label { font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:4px; }
-        .money-owed-val { font-family:'Barlow Condensed',sans-serif;font-size:36px;color:var(--text);letter-spacing:2px; }
+        .money-owed-val { font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--text);letter-spacing:2px; }
         .trade-grid { display:grid;grid-template-columns:1fr 1fr;gap:6px; }
         .divider { border:none;border-top:1px solid var(--wire);margin:16px 0; }
         .section-label { font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px; }
+        /* ── FLOATING ADD BUTTON ── */
+        .fab { position:fixed;bottom:28px;right:24px;z-index:1000;background:var(--red);color:#fff;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:14px 24px;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(224,16,47,0.5);transition:all 0.15s;display:none;align-items:center;gap:8px; }
+        .fab:hover { background:var(--red2);box-shadow:0 4px 28px rgba(224,16,47,0.7); }
+        .fab:active { transform:scale(0.97); }
+        /* ── BOTTOM ADD BUTTON ── */
+        .add-call-bottom { width:100%;background:transparent;border:2px dashed rgba(224,16,47,0.3);color:var(--red);font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:16px;cursor:pointer;transition:all 0.15s;margin-top:8px; }
+        .add-call-bottom:hover { background:var(--red3);border-color:var(--red); }
     </style>
 </head>
 <body>
+<div id="themeToggleWrap" style="position:fixed;top:12px;right:16px;z-index:9999;">
+  <button id="themeToggleBtn" onclick="toggleTheme()" style="background:var(--s2);border:1px solid var(--wire2);color:var(--muted);font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;">
+    <span id="themeIcon">☀️</span><span id="themeLabel">LIGHT</span>
+  </button>
+</div>
+<script>
+(function(){var t=localStorage.getItem('arTheme')||'dark';applyTheme(t);})();
+function applyTheme(t){localStorage.setItem('arTheme',t);if(t==='light'){document.documentElement.classList.add('light');var i=document.getElementById('themeIcon');var l=document.getElementById('themeLabel');if(i)i.textContent='🌙';if(l)l.textContent='DARK';}else{document.documentElement.classList.remove('light');var i=document.getElementById('themeIcon');var l=document.getElementById('themeLabel');if(i)i.textContent='☀️';if(l)l.textContent='LIGHT';}}
+function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyTheme(cur==='dark'?'light':'dark');}
+</script>
+
+<!-- FLOATING ADD CALL BUTTON -->
+<button class="fab" id="fabAddCall">+ Add Call</button>
+
 <div class="page">
     <div class="page-header">
         <div>
@@ -101,6 +130,7 @@
                 <button class="btn btn-red" id="addCallBtn">+ Add Call</button>
             </div>
             <div id="callsList"></div>
+            <button class="add-call-bottom" id="addCallBottom" style="display:none;">+ Add Another Call</button>
         </div>
     </div>
 </div>
@@ -117,22 +147,31 @@
         const week=getWeek(currentDate);
         document.getElementById('weekRange').textContent=`${week[0].toLocaleDateString('en-US',{month:'short',day:'numeric'})} — ${week[6].toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`.toUpperCase();
         const grid=document.getElementById('calendarDays');grid.innerHTML='';
-        week.forEach(d=>{
+        // Pre-create all 7 slots so async fills go to the correct index
+        week.forEach((_,i)=>{
+            const slot=document.createElement('button');
+            slot.className='cal-day';
+            slot.innerHTML='<div class="cal-day-num" style="opacity:.2">—</div>';
+            grid.appendChild(slot);
+        });
+        week.forEach((d,i)=>{
             db.ref(`callLogs/${dataKey(d)}`).once('value',snap=>{
                 const calls=snap.val(),arr=calls?Object.values(calls):[];
                 const sold=arr.filter(c=>c.jobSold).length,rev=arr.reduce((s,c)=>s+(parseFloat(c.amountSold)||0),0);
                 const dateKey=dk(d),isSelected=selectedDate===dateKey;
-                const btn=document.createElement('button');
+                const btn=grid.children[i]; // target the pre-created slot by index
                 btn.className='cal-day'+(arr.length>0?' has-calls':'')+(isSelected?' selected':'');
                 btn.innerHTML=`<div class="cal-day-num">${d.getDate()}</div>${arr.length>0?`<div class="cal-day-stat">${sold} sold · $${Math.round(rev/1000*10)/10}k</div>`:`<div class="cal-day-empty">—</div>`}`;
                 btn.onclick=()=>{selectedDate=isSelected?null:dateKey;renderCalendar();if(selectedDate)renderCalls(d);else document.getElementById('callsSection').style.display='none';};
-                grid.appendChild(btn);
             });
         });
     }
     function calculateMoneyOwed(sold,collected){return Math.max(0,(parseFloat(sold)||0)-(parseFloat(collected)||0));}
     function renderCalls(date){
         document.getElementById('callsSection').style.display='block';
+        // Show FAB and bottom button when calls section is open
+        document.getElementById('fabAddCall').style.display='flex';
+        document.getElementById('addCallBottom').style.display='block';
         const key=dataKey(date);
         db.ref(`callLogs/${key}`).on('value',snap=>{
             const calls=snap.val(),arr=calls?Object.keys(calls).map(id=>({id,...calls[id]})):[];
@@ -149,7 +188,21 @@
                         <div class="field"><label>Amount Sold ($)</label><input id="amountSold_${c.id}" type="number" value="${c.amountSold||''}" onchange="handleAmountChange('${c.id}')" placeholder="0.00" /></div>
                         <div class="field"><label>Amount Collected ($)</label><input id="amountCollected_${c.id}" type="number" value="${c.amountCollected||''}" onchange="handleAmountChange('${c.id}')" placeholder="0.00" /></div>
                         <div class="money-owed-display"><div class="money-owed-label">Money Still Owed</div><div id="moneyOwed_${c.id}" class="money-owed-val">$${calculateMoneyOwed(c.amountSold,c.amountCollected).toLocaleString()}</div></div>
-                        <label class="check-row" style="margin-top:10px;"><input type="checkbox" ${c.soldFromTurnover?'checked':''} onchange="updateCall('${c.id}','soldFromTurnover',this.checked)"><span>🔄 Sold from Turnover</span></label>
+                        <div class="field" style="margin-top:12px;"><label>💳 Payment Method</label>
+                        <select onchange="updateCall('${c.id}','paymentMethod',this.value)">
+                            <option value="">Select payment method...</option>
+                            <option value="card" ${c.paymentMethod==='card'?'selected':''}>💳 Card</option>
+                            <option value="cash" ${c.paymentMethod==='cash'?'selected':''}>💵 Cash</option>
+                            <option value="check" ${c.paymentMethod==='check'?'selected':''}>📄 Check</option>
+                            <option value="financing" ${c.paymentMethod==='financing'?'selected':''}>🏦 Financing</option>
+                            <option value="mixed" ${c.paymentMethod==='mixed'?'selected':''}>🔀 Mixed</option>
+                        </select></div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+                            <label class="check-row"><input type="checkbox" ${c.hasParts?'checked':''} onchange="updateCall('${c.id}','hasParts',this.checked)"><span>🔩 Parts</span></label>
+                            <label class="check-row"><input type="checkbox" ${c.hasLabor?'checked':''} onchange="updateCall('${c.id}','hasLabor',this.checked)"><span>🛠️ Labor</span></label>
+                            <label class="check-row"><input type="checkbox" ${c.isNewCustomer?'checked':''} onchange="updateCall('${c.id}','isNewCustomer',this.checked)"><span>🆕 New Customer</span></label>
+                        </div>
+                        <label class="check-row" style="margin-top:8px;"><input type="checkbox" ${c.soldFromTurnover?'checked':''} onchange="updateCall('${c.id}','soldFromTurnover',this.checked)"><span>🔄 Sold from Turnover</span></label>
                         ${c.soldFromTurnover?`<div class="field" style="margin-top:8px;"><label>Turnover from</label><select onchange="updateCall('${c.id}','turnoverFrom',this.value)"><option value="">Select...</option>${people.filter(p=>p.id!==selected).map(p=>`<option value="${p.id}"${c.turnoverFrom===p.id?' selected':''}>${p.name}</option>`).join('')}</select></div>`:''}</div>`:''}
                     <label class="check-row"><input type="checkbox" ${c.jobCancelled?'checked':''} onchange="updateCall('${c.id}','jobCancelled',this.checked)"><span>❌ Job Cancelled</span></label>
                     ${c.jobCancelled?`<div class="field"><label>Reason</label><textarea onchange="updateCall('${c.id}','cancelReason',this.value)" rows="2">${c.cancelReason||''}</textarea></div>`:''}
@@ -165,6 +218,7 @@
                     <hr class="divider"><div class="section-label">Performance</div>
                     <div class="trade-grid">
                         <label class="check-row"><input type="checkbox" ${c.reviewCompleted?'checked':''} onchange="updateCall('${c.id}','reviewCompleted',this.checked)"><span>✅ Review</span></label>
+                        <label class="check-row"><input type="checkbox" ${c.reviewWithPic?'checked':''} onchange="updateCall('${c.id}','reviewWithPic',this.checked)"><span>📸 Pic Review</span></label>
                         <label class="check-row"><input type="checkbox" ${c.restorationLead?'checked':''} onchange="updateCall('${c.id}','restorationLead',this.checked)"><span>🏠 Restoration</span></label>
                         <label class="check-row"><input type="checkbox" ${c.turnoverAttempted?'checked':''} onchange="updateCall('${c.id}','turnoverAttempted',this.checked)"><span>🔄 TO Attempt</span></label>
                         <label class="check-row"><input type="checkbox" ${c.turnoverAccepted?'checked':''} onchange="updateCall('${c.id}','turnoverAccepted',this.checked)" ${!c.turnoverAttempted?'disabled':''}><span>✔️ TO Accepted</span></label>
@@ -172,6 +226,7 @@
                         <label class="check-row"><input type="checkbox" ${c.membershipPlanSold?'checked':''} onchange="updateCall('${c.id}','membershipPlanSold',this.checked)"><span>🛡️ Membership</span></label>
                         <label class="check-row"><input type="checkbox" ${c.upsellCompleted?'checked':''} onchange="updateCall('${c.id}','upsellCompleted',this.checked)"><span>⬆️ Upsell</span></label>
                         <label class="check-row"><input type="checkbox" ${c.jobComplete?'checked':''} onchange="updateCall('${c.id}','jobComplete',this.checked)"><span>✔️ Complete</span></label>
+                        <label class="check-row"><input type="checkbox" ${c.actionThermostat?'checked':''} onchange="updateCall('${c.id}','actionThermostat',this.checked)"><span>🌡️ Anywhere Stat</span></label>
                     </div>
                     ${c.upsellCompleted?`<div class="field" style="margin-top:8px;"><label>Upsell Amount ($)</label><input type="number" value="${c.upsellAmount||''}" onchange="updateCall('${c.id}','upsellAmount',parseFloat(this.value)||0)" /></div>`:''}
                     <hr class="divider">
@@ -188,14 +243,83 @@
                     </select></div>
                 </div>`).join('');
         });
-        document.getElementById('addCallBtn').onclick=()=>{db.ref(`callLogs/${key}`).push().set({customerName:'',jobNumber:'',customerPhone:'',reviewCompleted:false,restorationLead:false,turnoverAttempted:false,turnoverAccepted:false,threeDoorKnocks:false,membershipPlanSold:false,upsellCompleted:false,upsellAmount:0,jobComplete:false,jobSold:false,amountSold:0,amountCollected:0,moneyOwed:0,leftEstimate:false,estimateAmount:0,jobCancelled:false,cancelReason:'',tradePlumbing:false,tradeHVAC:false,tradeElectrical:false,tradeCameras:false,objection:'',soldFromTurnover:false,turnoverFrom:'',timestamp:Date.now(),timeOfDay:new Date().getHours()});};
+        const newCallPayload={customerName:'',jobNumber:'',customerPhone:'',reviewCompleted:false,reviewWithPic:false,restorationLead:false,turnoverAttempted:false,turnoverAccepted:false,threeDoorKnocks:false,membershipPlanSold:false,upsellCompleted:false,upsellAmount:0,jobComplete:false,jobSold:false,amountSold:0,amountCollected:0,moneyOwed:0,paymentMethod:'',hasParts:false,hasLabor:false,isNewCustomer:false,leftEstimate:false,estimateAmount:0,jobCancelled:false,cancelReason:'',tradePlumbing:false,tradeHVAC:false,tradeElectrical:false,tradeCameras:false,actionThermostat:false,objection:'',soldFromTurnover:false,turnoverFrom:'',timestamp:Date.now(),timeOfDay:new Date().getHours()};
+        const doAddCall=()=>{ db.ref(`callLogs/${key}`).push().set({...newCallPayload,timestamp:Date.now(),timeOfDay:new Date().getHours()}).then(ref=>{ setTimeout(()=>{ const cards=document.querySelectorAll('.call-card'); if(cards.length) cards[cards.length-1].scrollIntoView({behavior:'smooth',block:'start'}); },200); }); };
+        document.getElementById('addCallBtn').onclick=doAddCall;
+        document.getElementById('addCallBottom').onclick=doAddCall;
+        document.getElementById('fabAddCall').onclick=doAddCall;
     }
     function handleAmountChange(callId){const key=dataKey(getWeek(currentDate).find(d=>dk(d)===selectedDate));const sold=parseFloat(document.getElementById(`amountSold_${callId}`).value)||0,collected=parseFloat(document.getElementById(`amountCollected_${callId}`).value)||0,owed=calculateMoneyOwed(sold,collected);db.ref(`callLogs/${key}/${callId}`).update({amountSold:sold,amountCollected:collected,moneyOwed:owed});document.getElementById(`moneyOwed_${callId}`).textContent=`$${owed.toLocaleString()}`;}
     function updateCall(callId,field,value){const key=dataKey(getWeek(currentDate).find(d=>dk(d)===selectedDate));db.ref(`callLogs/${key}/${callId}/${field}`).set(value);}
     function deleteCall(callId){if(confirm('Delete this call?')){const key=dataKey(getWeek(currentDate).find(d=>dk(d)===selectedDate));db.ref(`callLogs/${key}/${callId}`).remove();}}
-    document.getElementById('prevWeek').onclick=()=>{currentDate=new Date(currentDate.getTime()-7*24*60*60*1000);selectedDate=null;document.getElementById('callsSection').style.display='none';renderCalendar();};
-    document.getElementById('nextWeek').onclick=()=>{currentDate=new Date(currentDate.getTime()+7*24*60*60*1000);selectedDate=null;document.getElementById('callsSection').style.display='none';renderCalendar();};
+    const hideExtras=()=>{ document.getElementById('callsSection').style.display='none'; document.getElementById('fabAddCall').style.display='none'; document.getElementById('addCallBottom').style.display='none'; };
+    document.getElementById('prevWeek').onclick=()=>{currentDate=new Date(currentDate.getTime()-7*24*60*60*1000);selectedDate=null;hideExtras();renderCalendar();};
+    document.getElementById('nextWeek').onclick=()=>{currentDate=new Date(currentDate.getTime()+7*24*60*60*1000);selectedDate=null;hideExtras();renderCalendar();};
     renderCalendar();
+</script>
+<style>
+#abn-sheet,#abn-scrim{display:none}
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom))!important}
+#abn{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:99990;
+background:rgba(10,10,10,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+border-top:1px solid rgba(255,255,255,.09);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+html.light #abn{background:rgba(250,250,250,.94);border-top-color:rgba(0,0,0,.1)}
+.abn-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+padding:6px 2px;text-decoration:none;color:#8a8a8a;position:relative;background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;font:inherit}
+.abn-ico{font-size:19px;line-height:1}
+.abn-lab{font-family:'Oswald',sans-serif;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.abn-tab.on{color:#e0102f}
+.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#e0102f}
+#abn-scrim.open{display:block;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.55)}
+#abn-sheet.open{display:block;position:fixed;left:0;right:0;bottom:0;z-index:99992;
+background:#111;border-top:2px solid #e0102f;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
+html.light #abn-sheet.open{background:#fff}
+.abn-sh{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#7a7a7a;margin-bottom:12px}
+.abn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.abn-item{display:flex;align-items:center;gap:10px;padding:13px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);text-decoration:none;color:#e8e8e8}
+html.light .abn-item{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.08);color:#111}
+.abn-item .i{font-size:18px}
+.abn-item .t{font-family:'Oswald',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+@media (pointer:coarse) and (orientation:landscape){
+#abn,#abn-sheet.open,#abn-scrim.open{display:none!important}
+body{padding-bottom:0!important}
+}
+</style>
+<nav id="abn">
+ <a class="abn-tab" href="index.html" data-p="index.html"><span class="abn-ico">&#127968;</span><span class="abn-lab">Home</span></a>
+ <a class="abn-tab" href="calls.html" data-p="calls.html"><span class="abn-ico">&#128222;</span><span class="abn-lab">Calls</span></a>
+ <a class="abn-tab" href="goals.html" data-p="goals.html"><span class="abn-ico">&#127919;</span><span class="abn-lab">My Report</span></a>
+ <a class="abn-tab" href="turnin.html" data-p="turnin.html"><span class="abn-ico">&#128203;</span><span class="abn-lab">Turn-In</span></a>
+ <button class="abn-tab" id="abn-more" type="button"><span class="abn-ico">&#9776;</span><span class="abn-lab">More</span></button>
+</nav>
+<div id="abn-scrim"></div>
+<div id="abn-sheet">
+ <div class="abn-sh">More</div>
+ <div class="abn-grid">
+  <a class="abn-item" href="reports.html"><span class="i">&#128202;</span><span class="t">Team Report</span></a>
+  <a class="abn-item" href="money.html"><span class="i">&#128176;</span><span class="t">Money Owed</span></a>
+  <a class="abn-item" href="competition.html"><span class="i">&#127942;</span><span class="t">Competition</span></a>
+  <a class="abn-item" href="doors.html"><span class="i">&#128682;</span><span class="t">Door Knock</span></a>
+  <a class="abn-item" href="gym.html"><span class="i">&#127947;&#65039;</span><span class="t">Log Gym</span></a>
+  <a class="abn-item" href="training.html"><span class="i">&#127891;</span><span class="t">Sales Academy</span></a>
+  <a class="abn-item" href="manager.html"><span class="i">&#129517;</span><span class="t">Manager</span></a>
+ </div>
+</div>
+<script>
+(function(){
+ var p=(location.pathname.split('/').pop()||'index.html');
+ document.querySelectorAll('.abn-tab[data-p]').forEach(function(t){if(t.getAttribute('data-p')===p)t.classList.add('on');});
+ var more=['reports.html','money.html','competition.html','doors.html','gym.html','training.html','manager.html','action_workbook.html','team_workbook.html'];
+ if(more.indexOf(p)>-1)document.getElementById('abn-more').classList.add('on');
+ var sheet=document.getElementById('abn-sheet'),scrim=document.getElementById('abn-scrim');
+ document.getElementById('abn-more').onclick=function(){sheet.classList.toggle('open');scrim.classList.toggle('open');};
+ scrim.onclick=function(){sheet.classList.remove('open');scrim.classList.remove('open');};
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
 </script>
 </body>
 </html>
