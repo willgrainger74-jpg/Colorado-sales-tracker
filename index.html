@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#0a102a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,7 +12,7 @@
     <title>Anywhere Rooter — Sales Tracker</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,26 +20,26 @@
             --blue:   #10309f;
             --blue2:  #1440a0;
             --blue3:  rgba(16,48,159,0.18);
-            --red:    #e0102f;
-            --red2:   #991b1b;
-            --red3:   #450a0a;
-            --bg:     #080808;
-            --s1:     #111111;
-            --s2:     #181818;
-            --s3:     #202020;
+            --red:    #2575fc;
+            --red2:   #173997;
+            --red3:   #0b1c4d;
+            --bg:     #0a102a;
+            --s1:     #101a3d;
+            --s2:     #14224c;
+            --s3:     #1b2b5e;
             --wire:   rgba(255,255,255,0.06);
             --wire2:  rgba(255,255,255,0.10);
-            --muted:  #666;
-            --faint:  #333;
-            --text:   #efefef;
+            --muted:  #a9b6dd;
+            --faint:  #5b6a99;
+            --text:   #f0f4ff;
         }
 
 /* ── LIGHT MODE ── */
-html.light{--bg:#f4f4f4;--s1:#ffffff;--s2:#ebebeb;--s3:#e0e0e0;--s4:#d4d4d4;--wire:rgba(0,0,0,0.08);--wire2:rgba(0,0,0,0.14);--wire3:rgba(0,0,0,0.22);--muted:#555555;--faint:#999999;--text:#111111;--red3:#fde8e8;}
+html.light{--bg:#0a102a;--s1:#101a3d;--s2:#14224c;--s3:#1b2b5e;--s4:#24356e;--wire:rgba(0,0,0,0.08);--wire2:rgba(0,0,0,0.14);--wire3:rgba(0,0,0,0.22);--muted:#a9b6dd;--faint:#5b6a99;--text:#f0f4ff;--red3:#0b1c4d;}
 html.light body::after{display:none;}
 html.light input,html.light select,html.light textarea{background:var(--s3);border-color:var(--wire2);color:var(--text);}
 html.light input::placeholder,html.light textarea::placeholder{color:var(--faint);}
-html.light .nav-card.training-card{background:#ffffff;border-left-color:rgba(224,16,47,0.3);}
+html.light .nav-card.training-card{background:#ffffff;border-left-color:rgba(37,117,252,0.3);}
 html.light .nav-card.training-card:hover{background:#fff5f5;}
 html.light .nav-card.training-card .nav-card-title{color:#111111;}
 html.light .nav-card.mgr-card{background:#f5f5f5;}
@@ -87,10 +87,10 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
             position: absolute;
             top: -20px;
             left: -8px;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Barlow Condensed', sans-serif;
             font-size: 180px;
             line-height: 1;
-            color: rgba(224,16,47,0.04);
+            color: rgba(37,117,252,0.04);
             letter-spacing: -4px;
             pointer-events: none;
             user-select: none;
@@ -128,7 +128,7 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
         }
 
         .hero-title {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Barlow Condensed', sans-serif;
             font-size: clamp(56px, 8vw, 96px);
             line-height: 0.9;
             letter-spacing: 2px;
@@ -136,7 +136,7 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
         }
         .hero-title em {
             font-style: normal;
-            color: #3b63d6;
+            color: #0AA2FF;
         }
 
         .hero-sub {
@@ -228,7 +228,7 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
             margin-bottom: 8px;
         }
         .stat-num {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Barlow Condensed', sans-serif;
             font-size: 64px;
             line-height: 1;
             color: var(--text);
@@ -291,7 +291,7 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
         /* ── ADD FORM ── */
         .add-form {
             background: var(--s2);
-            border: 1px solid rgba(224,16,47,0.3);
+            border: 1px solid rgba(37,117,252,0.3);
             border-left: 3px solid var(--red);
             padding: 18px 20px;
             margin-bottom: 20px;
@@ -366,7 +366,7 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
         }
         .person-btn.selected {
             border-top-color: var(--red);
-            border-color: rgba(224,16,47,0.4);
+            border-color: rgba(37,117,252,0.4);
             background: var(--red3);
             color: var(--text);
         }
@@ -383,7 +383,7 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
             position: absolute;
             top: -6px; right: -6px;
             width: 20px; height: 20px;
-            background: #e0102f;
+            background: #2575fc;
             color: #fff;
             border: 2px solid var(--bg);
             border-radius: 50%;
@@ -456,7 +456,7 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
         .nav-card .card-num {
             position: absolute;
             bottom: -10px; right: 8px;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Barlow Condensed', sans-serif;
             font-size: 80px;
             color: rgba(255,255,255,0.03);
             line-height: 1;
@@ -496,11 +496,11 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--red);
-            border: 1px solid rgba(224,16,47,0.3);
+            border: 1px solid rgba(37,117,252,0.3);
             padding: 3px 8px;
         }
 
-        .nav-card.mgr-card { background: #0d0d0d; }
+        .nav-card.mgr-card { background: #0d1633; }
         .nav-card.mgr-card::before { background: var(--muted); }
         .nav-card.mgr-card:hover { background: #141414; }
         .nav-card.mgr-card .chip { color: var(--faint); border-color: var(--wire2); }
@@ -509,12 +509,12 @@ html.light .nav-card.mgr-card .nav-card-title{color:var(--muted);}
         /* ── TRAINING CARD SPECIAL ── */
         .nav-card.training-card {
             background: #0d0b0b;
-            border-left: 2px solid rgba(224,16,47,0.4);
+            border-left: 2px solid rgba(37,117,252,0.4);
         }
         .nav-card.training-card::before { background: var(--red); }
         .nav-card.training-card:hover { background: #130909; }
         .nav-card.training-card .nav-card-title { color: var(--text); }
-        .nav-card.training-card .chip { color: var(--red); border-color: rgba(224,16,47,0.3); }
+        .nav-card.training-card .chip { color: var(--red); border-color: rgba(37,117,252,0.3); }
         .training-new {
             display: inline-block;
             background: var(--red);
@@ -799,9 +799,9 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyThem
         overlay.innerHTML = `
             <div style="background:var(--s1);border:1px solid var(--wire);border-top:3px solid var(--red);padding:52px 44px;width:100%;max-width:400px;text-align:center">
                 <img src="logo.png" alt="Anywhere Rooter" style="width:200px;height:auto;margin:0 auto 10px;display:block">
-                <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--text);margin-bottom:4px">SIGN IN</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;letter-spacing:4px;color:var(--text);margin-bottom:4px">SIGN IN</div>
                 <div style="font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:32px">Anywhere Rooter Sales Tracker</div>
-                ${message ? `<div style="background:rgba(224,16,47,.12);border:1px solid rgba(224,16,47,.3);color:#ef4444;font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;margin-bottom:20px">${message}</div>` : ''}
+                ${message ? `<div style="background:rgba(37,117,252,.12);border:1px solid rgba(37,117,252,.3);color:#ef4444;font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;margin-bottom:20px">${message}</div>` : ''}
                 <input id="ar-u" type="text" autocomplete="username" placeholder="Username"
                     style="width:100%;background:var(--s3);border:1px solid var(--wire2);color:var(--text);padding:14px;font-family:'Inter',sans-serif;font-size:14px;outline:none;margin-bottom:10px;display:block;transition:border-color .15s" />
                 <input id="ar-p" type="password" autocomplete="current-password" placeholder="Password"
@@ -949,7 +949,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyThem
 
         // ── ANNOUNCEMENTS ──────────────────────────────────────────
         const icons={info:'📢',fire:'🔥',win:'🏆',warning:'⚠️'};
-        const borders={info:'rgba(255,255,255,0.15)',fire:'#e0102f',win:'#d97706',warning:'#f97316'};
+        const borders={info:'rgba(255,255,255,0.15)',fire:'#2575fc',win:'#d97706',warning:'#f97316'};
         db.ref('announcements').on('value', snap => {
             const data = snap.val() || {};
             const all = Object.values(data).sort((a,b) => new Date(b.date) - new Date(a.date));
@@ -957,7 +957,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyThem
             if (!all.length) { banner.style.display = 'none'; return; }
             banner.style.display = 'block';
             banner.innerHTML = all.map(a => `
-                <div style="background:#111;border:1px solid rgba(255,255,255,0.08);border-left:3px solid ${borders[a.type]||borders.info};padding:14px 18px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px">
+                <div style="background:#101a3d;border:1px solid rgba(255,255,255,0.08);border-left:3px solid ${borders[a.type]||borders.info};padding:14px 18px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px">
                     <span style="font-size:20px;flex-shrink:0">${icons[a.type]||'📢'}</span>
                     <div>
                         <div style="font-size:14px;color:#efefef;line-height:1.5;font-family:'Inter',sans-serif">${a.text}</div>
@@ -1178,11 +1178,11 @@ html.light #abn{background:rgba(250,250,250,.94);border-top-color:rgba(0,0,0,.1)
 padding:6px 2px;text-decoration:none;color:#8a8a8a;position:relative;background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;font:inherit}
 .abn-ico{font-size:19px;line-height:1}
 .abn-lab{font-family:'Oswald',sans-serif;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.abn-tab.on{color:#e0102f}
-.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#e0102f}
+.abn-tab.on{color:#2575fc}
+.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#2575fc}
 #abn-scrim.open{display:block;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.55)}
 #abn-sheet.open{display:block;position:fixed;left:0;right:0;bottom:0;z-index:99992;
-background:#111;border-top:2px solid #e0102f;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
+background:#101a3d;border-top:2px solid #2575fc;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
 html.light #abn-sheet.open{background:#fff}
 .abn-sh{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#7a7a7a;margin-bottom:12px}
 .abn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}

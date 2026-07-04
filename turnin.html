@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#0a102a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,21 +12,21 @@
     <title>Daily Turn-In — Anywhere Rooter</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
             --blue:   #10309f;
             --blue2:  #1440a0;
             --blue3:  rgba(16,48,159,0.18);
-            --red:#e0102f;--red2:#991b1b;--red3:#450a0a;
-            --bg:#080808;--s1:#111111;--s2:#181818;--s3:#202020;
+            --red:#2575fc;--red2:#173997;--red3:#0b1c4d;
+            --bg:#0a102a;--s1:#101a3d;--s2:#14224c;--s3:#1b2b5e;
             --wire:rgba(255,255,255,0.06);--wire2:rgba(255,255,255,0.10);
-            --muted:#aaa;--faint:#666;--text:#efefef;
+            --muted:#a9b6dd;--faint:#5b6a99;--text:#f0f4ff;
         }
 
 /* ── LIGHT MODE ── */
-html.light{--bg:#f4f4f4;--s1:#ffffff;--s2:#ebebeb;--s3:#e0e0e0;--s4:#d4d4d4;--wire:rgba(0,0,0,0.08);--wire2:rgba(0,0,0,0.14);--wire3:rgba(0,0,0,0.22);--muted:#555555;--faint:#999999;--text:#111111;--red3:#fde8e8;}
+html.light{--bg:#0a102a;--s1:#101a3d;--s2:#14224c;--s3:#1b2b5e;--s4:#24356e;--wire:rgba(0,0,0,0.08);--wire2:rgba(0,0,0,0.14);--wire3:rgba(0,0,0,0.22);--muted:#a9b6dd;--faint:#5b6a99;--text:#f0f4ff;--red3:#0b1c4d;}
 html.light body::after{display:none;}
 html.light input,html.light select,html.light textarea{background:var(--s3);border-color:var(--wire2);color:var(--text);}
 html.light input::placeholder,html.light textarea::placeholder{color:var(--faint);}
@@ -36,8 +36,8 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         .page { max-width:1400px;margin:0 auto;padding:24px 20px 60px; }
         .page-header { display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--wire);position:relative; }
         .page-header::after { content:"";position:absolute;bottom:-1px;left:0;height:3px;width:120px;background:linear-gradient(90deg,var(--red) 0 33%,#f5f5f5 33% 66%,var(--blue) 66% 100%); }
-        .page-title { font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);line-height:0.9;letter-spacing:2px; }
-        .page-title em { font-style:normal;color:#3b63d6; }
+        .page-title { font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,6vw,72px);line-height:0.9;letter-spacing:2px; }
+        .page-title em { font-style:normal;color:#0AA2FF; }
         .page-sub { font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:6px; }
         .back-btn { font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);border:1px solid var(--wire2);padding:10px 18px;text-decoration:none;transition:all 0.15s;white-space:nowrap;margin-top:8px;display:inline-block; }
         .back-btn:hover { color:var(--text);border-color:var(--muted); }
@@ -53,9 +53,9 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         .cal-day { background:var(--s2);border:1px solid var(--wire);border-top:2px solid transparent;padding:14px 8px;cursor:pointer;transition:all 0.15s;text-align:left;width:100%; }
         .cal-day:hover { border-top-color:var(--red);background:var(--s3); }
         .cal-day.has-sales { border-top-color:var(--red);background:rgba(68,10,10,0.4); }
-        .cal-day.selected { border-color:rgba(224,16,47,0.5);border-top-color:var(--red);background:var(--red3);box-shadow:0 0 0 1px var(--red); }
+        .cal-day.selected { border-color:rgba(37,117,252,0.5);border-top-color:var(--red);background:var(--red3);box-shadow:0 0 0 1px var(--red); }
         .cal-day.no-sales { opacity:0.5;cursor:default; }
-        .cal-day-num { font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--text);line-height:1; }
+        .cal-day-num { font-family:'Barlow Condensed',sans-serif;font-size:26px;color:var(--text);line-height:1; }
         .cal-day-stat { font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.06em;color:var(--red);margin-top:4px; }
         .cal-day-empty { font-size:13px;color:var(--muted);margin-top:4px; }
         .btn { font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:10px 20px;border:none;cursor:pointer;transition:all 0.15s; }
@@ -68,7 +68,7 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
 
         /* Turn-In Sheet Styles */
         .turnin-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--wire); }
-        .turnin-title { font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--text); }
+        .turnin-title { font-family:'Barlow Condensed',sans-serif;font-size:28px;letter-spacing:2px;color:var(--text); }
         .turnin-meta { font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:4px; }
         .actions-bar { display:flex;gap:10px;align-items:center; }
 
@@ -99,7 +99,7 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         .summary-bar { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px; }
         .summary-stat { background:var(--s2);border:1px solid var(--wire);border-top:2px solid var(--red);padding:16px 20px; }
         .summary-stat-label { font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px; }
-        .summary-stat-val { font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text);letter-spacing:1px;line-height:1; }
+        .summary-stat-val { font-family:'Barlow Condensed',sans-serif;font-size:32px;color:var(--text);letter-spacing:1px;line-height:1; }
         .summary-stat-val.red { color:var(--red); }
 
         .empty-state { text-align:center;padding:60px 20px;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint); }
@@ -186,7 +186,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyThem
 
         <!-- Print-only logo header -->
         <div class="print-header" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#000;">ANYWHERE ROOTER — DAILY TURN-IN</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;letter-spacing:2px;color:#000;">ANYWHERE ROOTER — DAILY TURN-IN</div>
             <div style="font-family:Arial,sans-serif;font-size:13px;color:#333;text-align:right;">
                 <div id="printName" style="font-weight:bold;"></div>
                 <div id="printDate"></div>
@@ -548,21 +548,21 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyThem
         const win = window.open('', '_blank');
         win.document.write(`<!DOCTYPE html>
 <html><head><title>Week Turn-In — ${weekLabel}</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Inter',sans-serif; background:#fff; color:#111; padding:20px; font-size:12px; }
   .week-summary { background:#f5f5f5; border:2px solid #111; padding:12px 16px; margin-bottom:16px; }
-  .ws-title { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; margin-bottom:12px; }
+  .ws-title { font-family:'Barlow Condensed',sans-serif; font-size:20px; letter-spacing:2px; margin-bottom:12px; }
   .ws-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
   .ws-stat { background:#fff; border:1px solid #ddd; padding:10px 14px; }
   .ws-lbl { font-family:'Oswald',sans-serif; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:#666; margin-bottom:3px; }
-  .ws-val { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; }
+  .ws-val { font-family:'Barlow Condensed',sans-serif; font-size:22px; letter-spacing:1px; }
   .ws-val.green { color:#166534; }
   .ws-val.red { color:#991b1b; }
   .day-block { margin-bottom:20px; }
   .day-header { border-bottom:2px solid #111; padding-bottom:8px; margin-bottom:10px; display:flex; align-items:flex-end; justify-content:space-between; }
-  .day-title { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; }
+  .day-title { font-family:'Barlow Condensed',sans-serif; font-size:16px; letter-spacing:2px; }
   .day-meta { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#555; }
   table { width:100%; border-collapse:collapse; margin-bottom:0; }
   th { font-family:'Oswald',sans-serif; font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:6px 7px; background:#222; color:#fff; text-align:left; white-space:nowrap; }
@@ -577,7 +577,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyThem
   }
 </style></head>
 <body>
-  <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;margin-bottom:16px;">
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;letter-spacing:3px;margin-bottom:16px;">
     ANYWHERE ROOTER — WEEKLY TURN-IN
     <span style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;margin-left:16px;color:#555;">${personName.toUpperCase()}</span>
   </div>
@@ -622,11 +622,11 @@ html.light #abn{background:rgba(250,250,250,.94);border-top-color:rgba(0,0,0,.1)
 padding:6px 2px;text-decoration:none;color:#8a8a8a;position:relative;background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;font:inherit}
 .abn-ico{font-size:19px;line-height:1}
 .abn-lab{font-family:'Oswald',sans-serif;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.abn-tab.on{color:#e0102f}
-.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#e0102f}
+.abn-tab.on{color:#2575fc}
+.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#2575fc}
 #abn-scrim.open{display:block;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.55)}
 #abn-sheet.open{display:block;position:fixed;left:0;right:0;bottom:0;z-index:99992;
-background:#111;border-top:2px solid #e0102f;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
+background:#101a3d;border-top:2px solid #2575fc;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
 html.light #abn-sheet.open{background:#fff}
 .abn-sh{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#7a7a7a;margin-bottom:12px}
 .abn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}

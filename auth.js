@@ -48,7 +48,7 @@ const AR_AUTH = (function () {
     function _showLogoutBanner(msg) {
         const el = document.createElement('div');
         el.style.cssText = `position:fixed;top:0;left:0;right:0;z-index:99999;
-            background:#e0102f;color:#fff;font-family:'Oswald',sans-serif;
+            background:#2575fc;color:#fff;font-family:'Oswald',sans-serif;
             font-size:13px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
             padding:14px 20px;text-align:center`;
         el.textContent = msg || 'Logged out';
@@ -97,7 +97,7 @@ const AR_AUTH = (function () {
                 background:var(--bg,#080808);display:flex;align-items:center;justify-content:center;`;
             overlay.innerHTML = `
                 <div style="background:var(--s1,#111);border:1px solid rgba(255,255,255,0.06);
-                    border-top:3px solid #e0102f;padding:52px 44px;width:100%;max-width:400px;text-align:center;">
+                    border-top:3px solid #2575fc;padding:52px 44px;width:100%;max-width:400px;text-align:center;">
                     <div style="font-size:36px;margin-bottom:16px">🔑</div>
                     <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:3px;color:var(--text,#efefef);margin-bottom:4px">Sign In</div>
                     <div style="font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#666;margin-bottom:32px">Anywhere Rooter Tracker</div>
@@ -115,7 +115,7 @@ const AR_AUTH = (function () {
                     <p id="ap-login-err" style="font-size:12px;color:#ef4444;font-family:'Oswald',sans-serif;
                         letter-spacing:.08em;margin-bottom:10px;min-height:18px"></p>
                     <button id="ap-login-btn"
-                        style="width:100%;background:#e0102f;color:#fff;font-family:'Oswald',sans-serif;
+                        style="width:100%;background:#2575fc;color:#fff;font-family:'Oswald',sans-serif;
                         font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
                         padding:14px;border:none;cursor:pointer;transition:background .15s;margin-bottom:20px">
                         UNLOCK
@@ -136,7 +136,7 @@ const AR_AUTH = (function () {
 
             // Focus styles
             [userIn, passIn].forEach(el => {
-                el.addEventListener('focus',  () => el.style.borderColor = '#e0102f');
+                el.addEventListener('focus',  () => el.style.borderColor = '#2575fc');
                 el.addEventListener('blur',   () => el.style.borderColor = 'rgba(255,255,255,0.10)');
             });
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#0a102a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,19 +11,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anywhere Army — Sales Training Academy</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #E8192C;
-    --red-dark: #B00020;
-    --red-glow: rgba(232,25,44,0.25);
-    --black: #0A0A0A;
-    --dark: #111111;
-    --card: #161616;
-    --card2: #1C1C1C;
+    --red: #2575fc;
+    --red-dark: #173997;
+    --red-glow: rgba(37,117,252,0.25);
+    --black: #0a102a;
+    --dark: #101a3d;
+    --card: #14224c;
+    --card2: #1b2b5e;
     --border: #2A2A2A;
     --border-bright: #3A3A3A;
-    --text: #F0F0F0;
+    --text: #f0f4ff;
     --text-muted: #888;
     --text-dim: #555;
     --gold: #F5C842;
@@ -34,13 +34,13 @@
 
   /* ── LIGHT MODE ── */
   html.light {
-    --black: #F2F2F2;
-    --dark: #FFFFFF;
-    --card: #FFFFFF;
-    --card2: #F5F5F5;
+    --black: #0a102a;
+    --dark: #101a3d;
+    --card: #14224c;
+    --card2: #1b2b5e;
     --border: #E0E0E0;
     --border-bright: #CCCCCC;
-    --text: #111111;
+    --text: #f0f4ff;
     --text-muted: #555555;
     --text-dim: #999999;
   }
@@ -80,7 +80,7 @@
   html.light select, html.light input, html.light textarea { background: #F5F5F5; border-color: #E0E0E0; color: #111; }
   html.light .btn-outline { border-color: var(--red); color: var(--red); background: transparent; }
   html.light .btn-outline:hover { background: var(--red); color: #fff; }
-  html.light .highlight-box { background: rgba(232,25,44,0.04); border-color: rgba(232,25,44,0.2); }
+  html.light .highlight-box { background: rgba(37,117,252,0.04); border-color: rgba(37,117,252,0.2); }
   html.light .highlight-box p { color: #333; }
   html.light .section-header h2 { color: #111; }
   html.light .section-header p { color: #666; }
@@ -114,7 +114,7 @@
   .top-bar a { color: var(--text-muted); text-decoration: none; font-size: 13px; }
   .top-bar a:hover { color: var(--red); }
   .logo {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 22px;
     letter-spacing: 3px;
     color: var(--red);
@@ -136,7 +136,7 @@
     top: -80px; left: 50%;
     transform: translateX(-50%);
     width: 600px; height: 300px;
-    background: radial-gradient(ellipse, rgba(232,25,44,0.12) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(37,117,252,0.12) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-badge {
@@ -151,13 +151,13 @@
     text-transform: uppercase;
   }
   .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: clamp(42px, 8vw, 80px);
     letter-spacing: 4px;
     line-height: 1;
     margin-bottom: 12px;
   }
-  .hero h1 span { color: #3b63d6; }
+  .hero h1 span { color: #0AA2FF; }
   .hero p {
     color: var(--text-muted);
     font-size: 15px;
@@ -209,7 +209,7 @@
     margin-bottom: 20px;
   }
   .card-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 22px;
     letter-spacing: 2px;
     color: var(--red);
@@ -239,12 +239,12 @@
     cursor: pointer;
   }
   .step:last-child { border-bottom: none; }
-  .step:hover .step-content { background: rgba(232,25,44,0.03); }
+  .step:hover .step-content { background: rgba(37,117,252,0.03); }
   .step-num {
     width: 40px; height: 40px;
     background: var(--red);
     color: #fff;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 20px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
@@ -294,7 +294,7 @@
   }
   .obj-icon {
     width: 36px; height: 36px;
-    background: rgba(232,25,44,0.15);
+    background: rgba(37,117,252,0.15);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 16px;
@@ -559,7 +559,7 @@
     gap: 14px;
   }
   .close-num {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 28px;
     color: var(--red);
     line-height: 1;
@@ -580,7 +580,7 @@
     padding: 3px 8px;
     border-radius: 2px;
     text-transform: uppercase;
-    background: rgba(232,25,44,0.15);
+    background: rgba(37,117,252,0.15);
     color: var(--red);
   }
   .close-body {
@@ -643,7 +643,7 @@
     transition: all 0.2s;
     position: relative;
   }
-  .phrase-card:hover { border-color: var(--red); background: rgba(232,25,44,0.04); }
+  .phrase-card:hover { border-color: var(--red); background: rgba(37,117,252,0.04); }
   .phrase-situation {
     font-size: 10px;
     font-family: 'Oswald', sans-serif;
@@ -717,7 +717,7 @@
     margin-bottom: 22px;
   }
   .section-header h2 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-size: 32px;
     letter-spacing: 3px;
     color: var(--text);
@@ -738,8 +738,8 @@
   }
 
   .highlight-box {
-    background: rgba(232,25,44,0.06);
-    border: 1px solid rgba(232,25,44,0.3);
+    background: rgba(37,117,252,0.06);
+    border: 1px solid rgba(37,117,252,0.3);
     border-radius: 4px;
     padding: 16px;
     margin-bottom: 16px;
@@ -1904,7 +1904,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyAcad
         <div class="card-sub">10 rounds · pick the stronger response each time</div>
       </div>
       <div id="battleScoreDisplay" style="text-align:right">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:var(--gold)" id="battleWins">0</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;line-height:1;color:var(--gold)" id="battleWins">0</div>
         <div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Wins / <span id="battleTotal">0</span></div>
       </div>
     </div>
@@ -1914,7 +1914,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyAcad
   <div id="battleRoundCard" style="display:none">
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--text)">ROUND <span id="battleRoundNum" style="color:var(--red)">1</span> <span style="font-size:16px;color:var(--text-muted)">OF 10</span></div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;letter-spacing:2px;color:var(--text)">ROUND <span id="battleRoundNum" style="color:var(--red)">1</span> <span style="font-size:16px;color:var(--text-muted)">OF 10</span></div>
         <div style="display:flex;gap:4px" id="battleProgressDots"></div>
       </div>
 
@@ -2050,7 +2050,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyAcad
   <!-- Cert status hero -->
   <div class="card" id="certHeroCard" style="text-align:center;padding:40px 24px;background:linear-gradient(135deg,var(--card) 0%,#1a0a0a 100%)">
     <div id="certBadgeDisplay" style="font-size:80px;margin-bottom:16px">🔒</div>
-    <div id="certStatusTitle" style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:var(--text);margin-bottom:8px">NOT CERTIFIED</div>
+    <div id="certStatusTitle" style="font-family:'Barlow Condensed',sans-serif;font-size:36px;letter-spacing:3px;color:var(--text);margin-bottom:8px">NOT CERTIFIED</div>
     <div id="certStatusSub" style="font-family:Oswald;font-size:13px;letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase">Complete all requirements below to earn your badge</div>
   </div>
 
@@ -2094,7 +2094,7 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyAcad
     <h2>YOUR <span>AI COACH</span></h2>
     <p>Ask anything. Your coach knows your training scores, your weak categories, and your real performance data. This isn't a generic chatbot — it knows you.</p>
   </div>
-  <div class="card" style="background:linear-gradient(135deg,var(--card) 0%,rgba(232,25,44,0.04) 100%)">
+  <div class="card" style="background:linear-gradient(135deg,var(--card) 0%,rgba(37,117,252,0.04) 100%)">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
       <div style="width:48px;height:48px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🧠</div>
       <div>
@@ -2169,9 +2169,9 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyAcad
     <p>Triple Your Revenue — 24 lessons to build your warrior sales operating system. Complete one lesson per day. Fill it in, drill it, own it.</p>
   </div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
-    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--red);line-height:1" id="awbCompleted">0</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Completed</div></div>
-    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1">24</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Total Lessons</div></div>
-    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1" id="awbPct">0%</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Progress</div></div>
+    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;color:var(--red);line-height:1" id="awbCompleted">0</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Completed</div></div>
+    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;color:var(--text);line-height:1">24</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Total Lessons</div></div>
+    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;color:var(--gold);line-height:1" id="awbPct">0%</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Progress</div></div>
   </div>
   <div id="awbLessonList"></div>
 </div>
@@ -2183,9 +2183,9 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyAcad
     <p>The Anywhere Army A-Player Field Manual. 10 modules on mindset, identity, objections, and daily standards. Do the work. Become the standard.</p>
   </div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
-    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--red);line-height:1" id="twbCompleted">0</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Completed</div></div>
-    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1">10</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Total Modules</div></div>
-    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1" id="twbPct">0%</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Progress</div></div>
+    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;color:var(--red);line-height:1" id="twbCompleted">0</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Completed</div></div>
+    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;color:var(--text);line-height:1">10</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Total Modules</div></div>
+    <div class="card" style="text-align:center;padding:16px;margin-bottom:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;color:var(--gold);line-height:1" id="twbPct">0%</div><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Progress</div></div>
   </div>
   <div id="twbLessonList"></div>
 </div>
@@ -2229,7 +2229,7 @@ const LEVEL_COLORS = {
   easy: { border:'#22C55E', bg:'rgba(34,197,94,0.1)', text:'#4ADE80' },
   medium: { border:'#F5C842', bg:'rgba(245,200,66,0.1)', text:'#F5C842' },
   hard: { border:'#F97316', bg:'rgba(249,115,22,0.1)', text:'#FB923C' },
-  extreme: { border:'#E8192C', bg:'rgba(232,25,44,0.1)', text:'#E8192C' }
+  extreme: { border:'#2575fc', bg:'rgba(37,117,252,0.1)', text:'#2575fc' }
 };
 
 async function loadProgression() {
@@ -2345,7 +2345,7 @@ const difficultyColors = {
   easy:    { bg:'rgba(34,197,94,0.15)',   color:'#4ADE80', label:'EASY' },
   medium:  { bg:'rgba(245,200,66,0.15)',  color:'#F5C842', label:'MEDIUM' },
   hard:    { bg:'rgba(249,115,22,0.15)',  color:'#FB923C', label:'HARD' },
-  extreme: { bg:'rgba(232,25,44,0.15)',   color:'#E8192C', label:'EXTREME' }
+  extreme: { bg:'rgba(37,117,252,0.15)',   color:'#2575fc', label:'EXTREME' }
 };
 
 function buildSystemPrompt(trade, scenario, difficulty, customText) {
@@ -2467,12 +2467,12 @@ function renderScorecard(scores) {
     trust_building: 'Trust Building'
   };
 
-  const overallColor = scores.overall >= 8 ? '#22C55E' : scores.overall >= 6 ? '#F5C842' : '#E8192C';
+  const overallColor = scores.overall >= 8 ? '#22C55E' : scores.overall >= 6 ? '#F5C842' : '#2575fc';
 
   let html = `
     <div style="display:flex;align-items:center;gap:24px;margin-bottom:24px;padding:20px;background:var(--card2);border-radius:4px;border:1px solid var(--border)">
       <div style="text-align:center;flex-shrink:0">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;color:${overallColor}">${scores.overall}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:72px;line-height:1;color:${overallColor}">${scores.overall}</div>
         <div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Overall Score</div>
         <div style="margin-top:8px;font-size:20px">${scores.did_they_close ? '✅ CLOSED' : '❌ NO CLOSE'}</div>
       </div>
@@ -2485,12 +2485,12 @@ function renderScorecard(scores) {
 
   Object.entries(cats).forEach(([key, label]) => {
     const cat = scores.categories?.[key] || { score: 0, feedback: '' };
-    const color = cat.score >= 8 ? '#22C55E' : cat.score >= 6 ? '#F5C842' : '#E8192C';
+    const color = cat.score >= 8 ? '#22C55E' : cat.score >= 6 ? '#F5C842' : '#2575fc';
     const barW = (cat.score / 10) * 100;
     html += `<div style="background:var(--card2);border:1px solid var(--border);border-radius:4px;padding:14px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
         <div style="font-family:Oswald;font-size:12px;font-weight:600;letter-spacing:0.5px;color:var(--text)">${label}</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:${color};line-height:1">${cat.score}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;color:${color};line-height:1">${cat.score}</div>
       </div>
       <div style="height:4px;background:var(--border);border-radius:2px;margin-bottom:8px"><div style="height:100%;width:${barW}%;background:${color};border-radius:2px;transition:width 0.8s ease"></div></div>
       <div style="font-size:12px;color:var(--text-muted);line-height:1.5">${cat.feedback || ''}</div>
@@ -2543,10 +2543,10 @@ async function loadHistory() {
     if (!data) { list.innerHTML = `<div style="color:var(--text-dim);font-size:13px;font-family:Oswald;letter-spacing:1px;text-transform:uppercase;padding:16px 0">No sessions yet.</div>`; return; }
     const sessions = Object.values(data).reverse();
     list.innerHTML = sessions.map(s => {
-      const color = s.overall >= 8 ? '#22C55E' : s.overall >= 6 ? '#F5C842' : '#E8192C';
+      const color = s.overall >= 8 ? '#22C55E' : s.overall >= 6 ? '#F5C842' : '#2575fc';
       const d = new Date(s.date).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
       return `<div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:${color};width:44px;text-align:center;flex-shrink:0">${s.overall}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;color:${color};width:44px;text-align:center;flex-shrink:0">${s.overall}</div>
         <div style="flex:1">
           <div style="font-family:Oswald;font-size:13px;font-weight:600;color:var(--text)">${s.scenario} <span style="color:var(--text-muted);font-weight:400">· ${s.difficulty?.toUpperCase()}</span></div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">${d} · ${s.didClose ? '✅ Closed' : '❌ No close'}</div>
@@ -2658,7 +2658,7 @@ function showDrillCard() {
   const dots = document.getElementById('drillDots');
   dots.innerHTML = Array.from({length:5},(_,i) => {
     const state = i < drillIndex ? (drillScores[i]?.score >= 7 ? 'good' : 'bad') : i === drillIndex ? 'active' : 'empty';
-    const bg = state==='good' ? '#22C55E' : state==='bad' ? '#E8192C' : state==='active' ? '#E8192C' : 'var(--border)';
+    const bg = state==='good' ? '#22C55E' : state==='bad' ? '#2575fc' : state==='active' ? '#2575fc' : 'var(--border)';
     const size = state==='active' ? '12px' : '8px';
     return `<div style="width:${size};height:${size};border-radius:50%;background:${bg};transition:all 0.2s;margin-top:${state==='active'?'0':'2px'}"></div>`;
   }).join('');
@@ -2706,13 +2706,13 @@ function renderDrillFeedback(grade) {
   document.getElementById('drillInputWrap').style.display = 'none';
   document.getElementById('drillFeedbackWrap').style.display = 'block';
 
-  const color = grade.score >= 8 ? '#22C55E' : grade.score >= 6 ? '#F5C842' : '#E8192C';
+  const color = grade.score >= 8 ? '#22C55E' : grade.score >= 6 ? '#F5C842' : '#2575fc';
   const isLast = drillIndex >= 4;
 
   document.getElementById('drillFeedbackBox').innerHTML = `
     <div style="background:var(--card2);border:1px solid var(--border);border-radius:4px;overflow:hidden">
       <div style="padding:14px 16px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:${color};line-height:1">${grade.score}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:48px;color:${color};line-height:1">${grade.score}</div>
         <div>
           <div style="font-family:Oswald;font-size:14px;font-weight:700;color:${color}">${grade.rating || ''}</div>
           <div style="font-size:13px;color:var(--text);margin-top:4px;line-height:1.5">${grade.feedback}</div>
@@ -2729,7 +2729,7 @@ function renderDrillFeedback(grade) {
     let bg, size;
     if (i < drillIndex) {
       // already scored
-      bg = (drillScores[i]?.score || 0) >= 7 ? '#22C55E' : '#E8192C';
+      bg = (drillScores[i]?.score || 0) >= 7 ? '#22C55E' : '#2575fc';
       size = '10px';
     } else if (i === drillIndex) {
       // current — just scored, show its color
@@ -2757,12 +2757,12 @@ function showDrillResults() {
   document.getElementById('drillResultsCard').style.display = 'block';
   const avg = drillScores.reduce((s,x)=>s+x.score,0) / drillScores.length;
   const avgRounded = Math.round(avg * 10) / 10;
-  const color = avg >= 8 ? '#22C55E' : avg >= 6 ? '#F5C842' : '#E8192C';
+  const color = avg >= 8 ? '#22C55E' : avg >= 6 ? '#F5C842' : '#2575fc';
 
   let html = `
     <div style="display:flex;align-items:center;gap:20px;margin-bottom:20px;padding:20px;background:var(--card2);border-radius:4px">
       <div style="text-align:center">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;color:${color}">${avgRounded}</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:64px;line-height:1;color:${color}">${avgRounded}</div>
         <div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Avg Score</div>
       </div>
       <div>
@@ -2773,9 +2773,9 @@ function showDrillResults() {
     <div style="display:flex;flex-direction:column;gap:8px">`;
 
   drillScores.forEach((s, i) => {
-    const c = s.score >= 8 ? '#22C55E' : s.score >= 6 ? '#F5C842' : '#E8192C';
+    const c = s.score >= 8 ? '#22C55E' : s.score >= 6 ? '#F5C842' : '#2575fc';
     html += `<div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--card2);border-radius:4px;border:1px solid var(--border)">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:${c};width:32px;text-align:center">${s.score}</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;color:${c};width:32px;text-align:center">${s.score}</div>
       <div style="font-size:13px;color:var(--text-muted);font-style:italic;flex:1">"${s.objection}"</div>
     </div>`;
   });
@@ -2886,7 +2886,7 @@ function showBattleRound() {
     const done = i < battleRound;
     const cur = i === battleRound;
     const won = done && battleResults[i]?.correct;
-    const bg = done ? (won ? '#22C55E' : '#E8192C') : cur ? '#E8192C' : 'var(--border)';
+    const bg = done ? (won ? '#22C55E' : '#2575fc') : cur ? '#2575fc' : 'var(--border)';
     return `<div style="width:${cur?'12px':'8px'};height:${cur?'12px':'8px'};border-radius:50%;background:${bg};transition:all 0.2s;margin-top:${cur?'0':'2px'}"></div>`;
   }).join('');
 
@@ -2908,19 +2908,19 @@ function pickBattle(choice) {
   const otherId = choice === 'A' ? 'battleOptB' : 'battleOptA';
   const winnerId = round.winner === 'A' ? 'battleOptA' : 'battleOptB';
 
-  document.getElementById(chosenId).style.borderColor = correct ? '#22C55E' : '#E8192C';
+  document.getElementById(chosenId).style.borderColor = correct ? '#22C55E' : '#2575fc';
   document.getElementById(otherId).style.opacity = '0.4';
   document.getElementById(winnerId).style.borderColor = '#22C55E';
   ['battleOptA','battleOptB'].forEach(id => document.getElementById(id).onclick = null);
 
   // Show verdict
   const verdictBox = document.getElementById('battleVerdictBox');
-  verdictBox.style.background = correct ? 'rgba(34,197,94,0.08)' : 'rgba(232,25,44,0.08)';
-  verdictBox.style.border = `1px solid ${correct ? '#22C55E' : '#E8192C'}`;
-  verdictBox.style.borderLeft = `4px solid ${correct ? '#22C55E' : '#E8192C'}`;
+  verdictBox.style.background = correct ? 'rgba(34,197,94,0.08)' : 'rgba(37,117,252,0.08)';
+  verdictBox.style.border = `1px solid ${correct ? '#22C55E' : '#2575fc'}`;
+  verdictBox.style.borderLeft = `4px solid ${correct ? '#22C55E' : '#2575fc'}`;
   verdictBox.style.padding = '14px 16px';
   verdictBox.innerHTML = `
-    <div style="font-family:Oswald;font-size:14px;font-weight:700;letter-spacing:1px;color:${correct?'#22C55E':'#E8192C'};margin-bottom:8px">
+    <div style="font-family:Oswald;font-size:14px;font-weight:700;letter-spacing:1px;color:${correct?'#22C55E':'#2575fc'};margin-bottom:8px">
       ${correct ? '✅ CORRECT — Option ' + round.winner + ' is stronger' : '❌ WRONG — Option ' + round.winner + ' was the right call'}
     </div>
     <div style="font-size:13px;color:var(--text);line-height:1.6">${round.reason}</div>`;
@@ -2940,13 +2940,13 @@ function showBattleResults() {
   document.getElementById('battleRoundCard').style.display = 'none';
   document.getElementById('battleResultsCard').style.display = 'block';
   const pct = Math.round(battleWinCount / 10 * 100);
-  const color = pct >= 80 ? '#22C55E' : pct >= 60 ? '#F5C842' : '#E8192C';
+  const color = pct >= 80 ? '#22C55E' : pct >= 60 ? '#F5C842' : '#2575fc';
   const msg = pct >= 90 ? 'Elite instincts. 🔥' : pct >= 70 ? 'Sharp! Keep grinding.' : pct >= 50 ? 'Getting there — run it again.' : 'Study the objection module and try again.';
 
   document.getElementById('battleResultsBody').innerHTML = `
     <div style="display:flex;align-items:center;gap:20px;padding:20px;background:var(--card2);border-radius:4px;margin-bottom:16px">
       <div style="text-align:center;flex-shrink:0">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;color:${color}">${battleWinCount}/10</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:64px;line-height:1;color:${color}">${battleWinCount}/10</div>
         <div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase">Correct</div>
       </div>
       <div>
@@ -2992,7 +2992,7 @@ function selectWarmupTrade(trade, btn) {
     b.style.background = 'var(--card2)';
   });
   btn.style.borderColor = 'var(--red)';
-  btn.style.background = 'rgba(232,25,44,0.06)';
+  btn.style.background = 'rgba(37,117,252,0.06)';
 
   const sel = document.getElementById('warmupScenario');
   sel.innerHTML = '<option value="">Select scenario...</option>';
@@ -3076,7 +3076,7 @@ const CERT_MODULES = [
 ];
 
 const CERT_LEVELS = ['easy','medium','hard','extreme'];
-const CERT_LEVEL_COLORS = { easy:'#22C55E', medium:'#F5C842', hard:'#F97316', extreme:'#E8192C' };
+const CERT_LEVEL_COLORS = { easy:'#22C55E', medium:'#F5C842', hard:'#F97316', extreme:'#2575fc' };
 
 // ── CERTIFICATION SYSTEM ──────────────────────────────────
 async function checkCertification() {
@@ -3148,7 +3148,7 @@ async function checkCertification() {
     return `<div style="background:var(--card2);border:1px solid ${passed?'#22C55E':unlocked?CERT_LEVEL_COLORS[lvl]:'var(--border)'};border-radius:4px;padding:14px;text-align:center;opacity:${unlocked?1:0.4}">
       <div style="font-size:24px;margin-bottom:6px">${passed?'✅':unlocked?'🔓':'🔒'}</div>
       <div style="font-family:Oswald;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${c}">${lvl}</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:${c};line-height:1.1">${best||'—'}</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;color:${c};line-height:1.1">${best||'—'}</div>
       <div style="font-size:10px;color:var(--text-muted);font-family:Oswald;letter-spacing:.5px">${passed?'PASSED':'Need 7+'}</div>
     </div>`;
   }).join('');
@@ -3517,10 +3517,10 @@ function renderObjResponses(objection, result) {
   document.getElementById('objBuilderBtn').disabled = false;
   const container = document.getElementById('objBuilderResults');
   container.style.display = 'block';
-  const levelColors = { soft:'#3B82F6', medium:'#F5C842', assertive:'#E8192C' };
+  const levelColors = { soft:'#3B82F6', medium:'#F5C842', assertive:'#2575fc' };
   let html = '';
   if (result.why_they_said_it) {
-    html += `<div style="background:rgba(232,25,44,0.06);border:1px solid rgba(232,25,44,0.2);border-left:3px solid var(--red);padding:12px 16px;border-radius:0 4px 4px 0"><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:4px">🧠 What They Really Mean</div><div style="font-size:13px;color:var(--text);line-height:1.5">${result.why_they_said_it}</div></div>`;
+    html += `<div style="background:rgba(37,117,252,0.06);border:1px solid rgba(37,117,252,0.2);border-left:3px solid var(--red);padding:12px 16px;border-radius:0 4px 4px 0"><div style="font-family:Oswald;font-size:10px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:4px">🧠 What They Really Mean</div><div style="font-size:13px;color:var(--text);line-height:1.5">${result.why_they_said_it}</div></div>`;
   }
   document.getElementById('objResponseCards').innerHTML = html;
   ['soft','medium','assertive'].forEach(lvl => {
@@ -3545,7 +3545,7 @@ function saveToPlaybook(objection, level, response, btn) {
 function renderPlaybook() {
   const el = document.getElementById('myPlaybook');
   if (!myPlaybook.length) { el.innerHTML = '<div style="color:var(--text-dim);font-size:13px;font-family:Oswald;letter-spacing:1px;text-transform:uppercase;padding:12px 0">No saved responses yet.</div>'; return; }
-  const levelColors = { soft:'#3B82F6', medium:'#F5C842', assertive:'#E8192C' };
+  const levelColors = { soft:'#3B82F6', medium:'#F5C842', assertive:'#2575fc' };
   el.innerHTML = myPlaybook.map(e => `<div style="padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start"><div style="flex:1;min-width:0"><div style="font-family:Oswald;font-size:11px;letter-spacing:1px;color:${levelColors[e.level]||'var(--text-muted)'};text-transform:uppercase;margin-bottom:4px">${e.level||''} · ${e.date||''}</div><div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;font-style:italic">"${e.objection}"</div><div style="font-size:13px;color:var(--text);line-height:1.5;font-style:italic">"${e.response}"</div></div><button onclick="deletePlaybookEntry(${e.id})" style="background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:18px;padding:2px;flex-shrink:0">×</button></div>`).join('');
 }
 
@@ -3626,14 +3626,14 @@ function renderWorkbookLesson(l, progress, prefix) {
   const savedNotes = localStorage.getItem(`ap_${prefix}_notes_${l.id}`) || '';
   return `<div style="background:var(--card);border:1px solid ${done?'rgba(34,197,94,0.4)':'var(--border)'};border-left:3px solid ${done?'#22C55E':'var(--border)'};border-radius:0 4px 4px 0;margin-bottom:10px;overflow:hidden">
     <div style="padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer" onclick="toggleWbLesson('${prefix}_lesson_${l.id}')">
-      <div style="width:32px;height:32px;border-radius:50%;background:${done?'#22C55E':'var(--card2)'};border:2px solid ${done?'#22C55E':'var(--border)'};display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:${done?'#000':'var(--text-muted)'};flex-shrink:0">${done?'✓':String(l.id).padStart(2,'0')}</div>
+      <div style="width:32px;height:32px;border-radius:50%;background:${done?'#22C55E':'var(--card2)'};border:2px solid ${done?'#22C55E':'var(--border)'};display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:${done?'#000':'var(--text-muted)'};flex-shrink:0">${done?'✓':String(l.id).padStart(2,'0')}</div>
       <div style="flex:1"><div style="font-family:Oswald;font-size:15px;font-weight:700;letter-spacing:.5px;color:${done?'var(--green)':'var(--text)'}">${l.title}</div></div>
       <div style="color:var(--text-dim);font-size:14px">▾</div>
     </div>
     <div id="${prefix}_lesson_${l.id}" style="display:none;padding:0 18px 18px">
       <div style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:16px">${l.content}</div>
       <div style="margin-bottom:16px"><div style="font-family:Oswald;font-size:11px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:8px">KEY PRINCIPLES</div>${l.principles.map(p=>`<div style="display:flex;gap:8px;margin-bottom:6px;font-size:13px;color:var(--text)"><span style="color:var(--red);flex-shrink:0">▸</span>${p}</div>`).join('')}</div>
-      <div style="background:rgba(232,25,44,0.06);border:1px solid rgba(232,25,44,0.2);border-radius:4px;padding:14px;margin-bottom:14px"><div style="font-family:Oswald;font-size:11px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:6px">⚡ TRAINING DRILL</div><div style="font-size:13px;color:var(--text);line-height:1.6">${l.drill}</div></div>
+      <div style="background:rgba(37,117,252,0.06);border:1px solid rgba(37,117,252,0.2);border-radius:4px;padding:14px;margin-bottom:14px"><div style="font-family:Oswald;font-size:11px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:6px">⚡ TRAINING DRILL</div><div style="font-size:13px;color:var(--text);line-height:1.6">${l.drill}</div></div>
       <div style="margin-bottom:12px"><div style="font-family:Oswald;font-size:11px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px">YOUR NOTES & ANSWERS</div><textarea placeholder="Write your answers, drills, and reflections here..." style="min-height:100px;width:100%;font-size:13px" id="${prefix}_notes_input_${l.id}" onblur="saveWbNotes('${prefix}',${l.id})">${savedNotes}</textarea></div>
       <button onclick="markWbComplete('${prefix}',${l.id})" style="background:${done?'rgba(34,197,94,0.15)':'var(--red)'};color:${done?'#22C55E':'#fff'};border:1px solid ${done?'#22C55E':'transparent'};font-family:Oswald;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 20px;cursor:pointer;border-radius:3px;transition:all 0.2s">${done?'✓ COMPLETED — CLICK TO UNDO':'MARK AS COMPLETE'}</button>
     </div>
@@ -3689,11 +3689,11 @@ html.light #abn{background:rgba(250,250,250,.94);border-top-color:rgba(0,0,0,.1)
 padding:6px 2px;text-decoration:none;color:#8a8a8a;position:relative;background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;font:inherit}
 .abn-ico{font-size:19px;line-height:1}
 .abn-lab{font-family:'Oswald',sans-serif;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.abn-tab.on{color:#e0102f}
-.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#e0102f}
+.abn-tab.on{color:#2575fc}
+.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#2575fc}
 #abn-scrim.open{display:block;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.55)}
 #abn-sheet.open{display:block;position:fixed;left:0;right:0;bottom:0;z-index:99992;
-background:#111;border-top:2px solid #e0102f;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
+background:#101a3d;border-top:2px solid #2575fc;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
 html.light #abn-sheet.open{background:#fff}
 .abn-sh{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#7a7a7a;margin-bottom:12px}
 .abn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}

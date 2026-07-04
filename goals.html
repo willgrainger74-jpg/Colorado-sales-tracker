@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#0a102a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,16 +12,16 @@
     <title>Individual Report — Anywhere Rooter</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         :root{
             --blue:   #10309f;
             --blue2:  #1440a0;
-            --blue3:  rgba(16,48,159,0.18);--red:#e0102f;--red2:#991b1b;--red3:#450a0a;--bg:#080808;--s1:#111;--s2:#181818;--s3:#202020;--wire:rgba(255,255,255,0.06);--wire2:rgba(255,255,255,0.10);--wire3:rgba(255,255,255,0.18);--muted:#aaa;--faint:#666;--text:#efefef;--green:#16a34a;--amber:#d97706}
+            --blue3:  rgba(16,48,159,0.18);--red:#2575fc;--red2:#173997;--red3:#0b1c4d;--bg:#0a102a;--s1:#101a3d;--s2:#14224c;--s3:#1b2b5e;--wire:rgba(255,255,255,0.06);--wire2:rgba(255,255,255,0.10);--wire3:rgba(255,255,255,0.18);--muted:#a9b6dd;--faint:#5b6a99;--text:#f0f4ff;--green:#16a34a;--amber:#d97706}
 
 /* ── LIGHT MODE ── */
-html.light{--bg:#f4f4f4;--s1:#ffffff;--s2:#ebebeb;--s3:#e0e0e0;--s4:#d4d4d4;--wire:rgba(0,0,0,0.08);--wire2:rgba(0,0,0,0.14);--wire3:rgba(0,0,0,0.22);--muted:#555555;--faint:#999999;--text:#111111;--red3:#fde8e8;}
+html.light{--bg:#0a102a;--s1:#101a3d;--s2:#14224c;--s3:#1b2b5e;--s4:#24356e;--wire:rgba(0,0,0,0.08);--wire2:rgba(0,0,0,0.14);--wire3:rgba(0,0,0,0.22);--muted:#a9b6dd;--faint:#5b6a99;--text:#f0f4ff;--red3:#0b1c4d;}
 html.light body::after{display:none;}
 html.light input,html.light select,html.light textarea{background:var(--s3);border-color:var(--wire2);color:var(--text);}
 html.light input::placeholder,html.light textarea::placeholder{color:var(--faint);}
@@ -31,20 +31,20 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;z-index:999}
         .page{max-width:1320px;margin:0 auto;padding:24px 20px 60px}
         .pg-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--wire);gap:16px;flex-wrap:wrap}
-        .pg-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,60px);line-height:.95;letter-spacing:2px}.pg-title em{font-style:normal;color:#3b63d6}
+        .pg-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(36px,5vw,60px);line-height:.95;letter-spacing:2px}.pg-title em{font-style:normal;color:#0AA2FF}
         .pg-sub{font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:4px}
         .back-btn{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--wire2);padding:9px 16px;text-decoration:none;transition:all .15s;white-space:nowrap;align-self:flex-start}.back-btn:hover{color:var(--text);border-color:var(--muted)}
         .card{background:var(--s1);border:1px solid var(--wire);padding:24px 28px;margin-bottom:20px}
         .card-inner{background:var(--s2);border:1px solid var(--wire);padding:16px 18px;margin-bottom:10px}
         .month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-        .month-nav h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px}
+        .month-nav h2{font-family:'Barlow Condensed',sans-serif;font-size:28px;letter-spacing:2px}
         .sec-label{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}.sec-label::after{content:'';flex:1;height:1px;background:var(--wire)}
         .sec-title{font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text);margin-bottom:10px}
         .stat-mosaic{display:grid;gap:2px;background:var(--wire);margin-bottom:16px}
         .sc-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted);margin-right:6px;vertical-align:middle}
         .sc-dot.good{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,.6)}
         .sc-dot.warn{background:#f59e0b}
-        .sc-dot.bad{background:var(--red);box-shadow:0 0 6px rgba(224,16,47,.6)}
+        .sc-dot.bad{background:var(--red);box-shadow:0 0 6px rgba(37,117,252,.6)}
         .stat-num.sc-good{color:#22c55e}
         .stat-num.sc-warn{color:#f59e0b}
         .stat-num.sc-bad{color:var(--red)}
@@ -55,8 +55,8 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         .coach-line a{color:var(--red);font-weight:600;text-decoration:none;border-bottom:1px solid var(--red)}
         .stat-block{background:var(--s1);padding:14px 16px;position:relative;overflow:hidden}.stat-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)}
         .stat-lbl{font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-        .stat-num{font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:var(--text);letter-spacing:1px}
-        .stat-num-md{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;color:var(--text)}
+        .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:40px;line-height:1;color:var(--text);letter-spacing:1px}
+        .stat-num-md{font-family:'Barlow Condensed',sans-serif;font-size:28px;line-height:1;color:var(--text)}
         .stat-meta{font-size:13px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
         .bar-track{width:100%;background:var(--s3);height:5px;margin:5px 0 3px}.bar-fill{height:100%;transition:width .3s}
         input[type=text],input[type=number],select,textarea{background:var(--s3);border:1px solid var(--wire2);color:var(--text);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;outline:none;transition:border-color .15s;width:100%}
@@ -69,20 +69,20 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         .g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2px;background:var(--wire)}
         @media(max-width:900px){.g4{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr}}
         @media(max-width:520px){.g2,.g3,.g4{grid-template-columns:1fr}}
-        .streak-block{background:var(--red3);border:1px solid rgba(224,16,47,.4);padding:28px;text-align:center;margin-bottom:20px}
-        .streak-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:#fca5a5;line-height:1;letter-spacing:4px}
+        .streak-block{background:var(--red3);border:1px solid rgba(37,117,252,.4);padding:28px;text-align:center;margin-bottom:20px}
+        .streak-num{font-family:'Barlow Condensed',sans-serif;font-size:80px;color:#fca5a5;line-height:1;letter-spacing:4px}
         .tier-card{background:var(--s2);border:1px solid var(--wire);border-left:3px solid var(--red);padding:16px 18px;margin-bottom:10px}
         .tier-card.reached{border-left-color:var(--green);background:rgba(22,163,74,.05)}
-        .tier-needed{font-family:'Bebas Neue',sans-serif;font-size:34px;color:#f97316;letter-spacing:2px}
+        .tier-needed{font-family:'Barlow Condensed',sans-serif;font-size:34px;color:#f97316;letter-spacing:2px}
         .wl-week-toggle{display:flex;gap:2px;background:var(--wire);margin-bottom:14px}
         .wl-week-btn{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;background:var(--s2);border:none;color:var(--muted);cursor:pointer;transition:all .15s;flex:1}
         .wl-week-btn.active{background:var(--red);color:#fff}
         .wl-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--wire);margin-bottom:12px}
         .wl-stat-blk{background:var(--s2);padding:12px 14px}
         .wl-stat-lbl{font-family:'Oswald',sans-serif;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-        .wl-stat-val{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;color:var(--text);letter-spacing:1px}
+        .wl-stat-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;line-height:1;color:var(--text);letter-spacing:1px}
         .wl-stat-val.green{color:#4ade80}
-        .wl-streak-bar{display:flex;align-items:center;gap:10px;background:rgba(224,16,47,.08);border:1px solid rgba(224,16,47,.2);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--muted)}
+        .wl-streak-bar{display:flex;align-items:center;gap:10px;background:rgba(37,117,252,.08);border:1px solid rgba(37,117,252,.2);border-left:3px solid var(--red);padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--muted)}
         .wl-streak-bar strong{color:var(--text)}
         .wl-day-label{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--wire)}
         .wl-entry{background:var(--s2);border:1px solid var(--wire);border-left:3px solid var(--red);display:flex;align-items:center;gap:14px;padding:12px 14px;margin-bottom:6px}
@@ -99,7 +99,7 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         .wl-tag.cash{color:#fbbf24;border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.05)}
         .wl-tag.newcust{color:#60a5fa;border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.05)}
         .wl-amount-col{flex-shrink:0;text-align:right;min-width:80px}
-        .wl-amount{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--text);line-height:1}
+        .wl-amount{font-family:'Barlow Condensed',sans-serif;font-size:22px;letter-spacing:1px;color:var(--text);line-height:1}
         .wl-sub{font-size:11px;margin-top:2px}
         .wl-empty{text-align:center;padding:28px;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
         .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--wire);margin-bottom:4px}
@@ -108,7 +108,7 @@ html.light input::placeholder,html.light textarea::placeholder{color:var(--faint
         .pr-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#b45309,#fbbf24)}
         .pr-icon{font-size:20px;margin-bottom:4px}
         .pr-lbl{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-        .pr-val{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;letter-spacing:2px;color:#fbbf24}
+        .pr-val{font-family:'Barlow Condensed',sans-serif;font-size:44px;line-height:1;letter-spacing:2px;color:#fbbf24}
         .pr-meta{font-size:12px;color:var(--muted);margin-top:3px;letter-spacing:.04em}
         .pr-date{font-family:'Oswald',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:8px;padding-top:6px;border-top:1px solid var(--wire)}
         .pr-crown{position:absolute;top:10px;right:12px;font-size:18px;opacity:.25}
@@ -252,8 +252,8 @@ function toggleTheme(){var cur=localStorage.getItem('arTheme')||'dark';applyThem
             <div class="stat-block"><div class="stat-lbl">Your Year Total</div><div id="yourYearTotal" class="stat-num">$0</div><div id="yourYearJobs" class="stat-meta">0 jobs closed</div></div>
             <div class="stat-block"><div class="stat-lbl">Team Year Total</div><div id="teamYearTotal" class="stat-num">$0</div><div id="teamYearJobs" class="stat-meta">0 jobs closed</div></div>
         </div>
-        <div class="card-inner" style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="stat-lbl">Your % of Team</span><span id="yourTeamPercent" style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px">0%</span></div><div style="background:var(--s3);height:7px;width:100%"><div id="yourTeamPercentBar" style="background:var(--red);height:100%;width:0%;transition:width .3s"></div></div></div>
-        <div id="teamGoalSection" class="card-inner" style="display:none;margin-bottom:16px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="stat-lbl">Contribution to Team Goal</span><span id="yourGoalPercent" style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px">0%</span></div><div class="stat-meta" id="teamGoalAmount" style="margin-bottom:5px">Team Goal: $0</div><div style="background:var(--s3);height:7px;width:100%"><div id="yourGoalPercentBar" style="background:var(--muted);height:100%;width:0%;transition:width .3s"></div></div></div>
+        <div class="card-inner" style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="stat-lbl">Your % of Team</span><span id="yourTeamPercent" style="font-family:'Barlow Condensed',sans-serif;font-size:22px;letter-spacing:1px">0%</span></div><div style="background:var(--s3);height:7px;width:100%"><div id="yourTeamPercentBar" style="background:var(--red);height:100%;width:0%;transition:width .3s"></div></div></div>
+        <div id="teamGoalSection" class="card-inner" style="display:none;margin-bottom:16px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="stat-lbl">Contribution to Team Goal</span><span id="yourGoalPercent" style="font-family:'Barlow Condensed',sans-serif;font-size:22px;letter-spacing:1px">0%</span></div><div class="stat-meta" id="teamGoalAmount" style="margin-bottom:5px">Team Goal: $0</div><div style="background:var(--s3);height:7px;width:100%"><div id="yourGoalPercentBar" style="background:var(--muted);height:100%;width:0%;transition:width .3s"></div></div></div>
         <div class="sec-label">Win Log</div>
         <div class="wl-week-toggle">
             <button class="wl-week-btn active" onclick="setWinLogWeek('this',this)">This Week</button>
@@ -794,11 +794,11 @@ html.light #abn{background:rgba(250,250,250,.94);border-top-color:rgba(0,0,0,.1)
 padding:6px 2px;text-decoration:none;color:#8a8a8a;position:relative;background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;font:inherit}
 .abn-ico{font-size:19px;line-height:1}
 .abn-lab{font-family:'Oswald',sans-serif;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.abn-tab.on{color:#e0102f}
-.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#e0102f}
+.abn-tab.on{color:#2575fc}
+.abn-tab.on::before{content:'';position:absolute;top:-7px;left:25%;right:25%;height:2px;background:#2575fc}
 #abn-scrim.open{display:block;position:fixed;inset:0;z-index:99991;background:rgba(0,0,0,.55)}
 #abn-sheet.open{display:block;position:fixed;left:0;right:0;bottom:0;z-index:99992;
-background:#111;border-top:2px solid #e0102f;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
+background:#101a3d;border-top:2px solid #2575fc;padding:18px 16px calc(20px + env(safe-area-inset-bottom))}
 html.light #abn-sheet.open{background:#fff}
 .abn-sh{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#7a7a7a;margin-bottom:12px}
 .abn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
